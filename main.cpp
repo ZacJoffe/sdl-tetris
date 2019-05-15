@@ -12,21 +12,49 @@ public:
     //enum BlockColour { cyan, yellow, purple, green, red, blue, orange };
 
     Colour(TetrominoType t) {
-        // set colour type 
         switch (t) {
             case I:
+                // #00FFFF
+                //red = 66;
+                red = 0;
+                blue = 255;
+                green = 255; 
                 break;
             case O:
+                // #FFFF00
+                red = 255;
+                blue = 255;
+                green = 0;
                 break;
             case T:
+                // #9900CC
+                red = 153;
+                blue = 0;
+                green = 204;
                 break;
             case S:
+                // #00FF00
+                red = 0;
+                blue = 0;
+                green = 255;
                 break;
             case Z:
+                // #FF0000
+                red = 255;
+                blue = 0;
+                green = 0;
                 break;
             case J:
+                // #0000FF
+                red = 0;
+                blue = 255;
+                green = 0;
                 break;
             case L:
+                // #FF7F00
+                red = 255;
+                blue = 153;
+                green = 0;
                 break;
         }
     }
