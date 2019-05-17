@@ -1,8 +1,12 @@
 #include <SDL2/SDL.h>
+#include <iostream>
 //#include <string>
 
-#define WIDTH 22
-#define HEIGHT 10
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
+
+#define BOARD_WIDTH 22
+#define BOARD_HEIGHT 10
 
 #define NUM_PIECES 7
 #define NUM_ORIENTATIONS 4
@@ -404,8 +408,7 @@ const int pieceL[4][4][4] {
 
 class Colour {
 public:
-    //enum BlockColour { cyan, yellow, purple, green, red, blue, orange };
-
+    //Colour() {} // needed?
     Colour(TetrominoType t) {
         switch (t) {
             case I:
@@ -478,7 +481,7 @@ private:
 class Tetromino {
 public:
     Tetromino(TetrominoType t) {
-        colour = Colour(t);
+        colour = new Colour(t);
         switch (type) {
             case I:
                 break;
@@ -498,7 +501,7 @@ public:
     }
 
     ~Tetromino() {
-
+        delete colour;
     }
 
     void rotate() {
@@ -514,15 +517,15 @@ public:
     }
 private:
     TetrominoType type;
-    Colour colour;
+    Colour *colour;
     int x;
     int y;
-    int rotation;
+    int rotation; // index of rotation in pieces array
 };
 
 class Board {
 private:
-    int board[WIDTH][HEIGHT];
+    int board[BOARD_WIDTH][BOARD_HEIGHT];
     //Piece piece;
 
 public:
@@ -534,3 +537,48 @@ public:
 
     }
 };
+
+SDL_Window *window = nullptr;
+SDL_Renderer *renderer = nullptr;
+
+// if any sdl call fails, returns false and logs error, otherwise return true for success
+bool init() {
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << "SDL could not initialize! SDL Error: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    window = SDL_CreateWindow("Tetris", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    if (window == NULL) {
+        std::cout << "Window could be not created! SDL Error: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, NULL); // enable hardware acceleration flag?
+    if (renderer == NULL) {
+        std::cout << "Rendered could not be created! SDL Error: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+void quit() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
+int main() {
+    if (!init()) {
+        return 1;
+    }
+
+
+    SDL_Delay(2000);
+
+    quit();
+
+
+    return 0;
+}
