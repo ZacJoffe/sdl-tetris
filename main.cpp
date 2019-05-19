@@ -306,8 +306,20 @@ public:
         delete colour;
     }
 
-    void rotate() {
+    void rotateCCW() {
+        if (rotation == 3) {
+            rotation = 0;
+        } else {
+            rotation++;
+        }
+    }
 
+    void rotateCW() {
+        if (rotation == 0) {
+            rotation = 3;
+        } else {
+            rotation--;
+        }
     }
 
     void move(int dx, int dy) {
@@ -403,7 +415,7 @@ int main() {
 
     SDL_Event e;
     bool quit = false;
-    Tetromino t(O);
+    Tetromino t(S);
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -423,7 +435,15 @@ int main() {
                         // move piece right
                         break;
                     case SDLK_UP:
+                        t.rotateCW();
                         // rotate
+                        break;
+                    case SDLK_z:
+                        t.rotateCW();
+                        // rotate
+                        break;
+                    case SDLK_x:
+                        t.rotateCCW();
                         break;
                     case SDLK_DOWN:
                         t.move(0, 1);
