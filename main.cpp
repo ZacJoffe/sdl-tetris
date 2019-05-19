@@ -421,14 +421,14 @@ public:
             case O:
                 // #FFFF00
                 red = 255;
-                blue = 255;
-                green = 0;
+                blue = 0;
+                green = 255;
                 break;
             case T:
                 // #9900CC
                 red = 153;
-                blue = 0;
-                green = 204;
+                blue = 204;
+                green = 0;
                 break;
             case S:
                 // #00FF00
@@ -451,8 +451,8 @@ public:
             case L:
                 // #FF7F00
                 red = 255;
-                blue = 153;
-                green = 0;
+                blue = 0;
+                green = 127;
                 break;
         }
     }
