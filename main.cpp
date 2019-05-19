@@ -2,11 +2,12 @@
 #include <iostream>
 //#include <string>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 640
 
-#define BOARD_WIDTH 22
-#define BOARD_HEIGHT 10
+#define BOARD_WIDTH 10
+#define BOARD_HEIGHT 22
+#define BOARD_VISIBLE_HEIGHT 20
 
 #define NUM_PIECES 7
 #define NUM_ORIENTATIONS 4
@@ -274,14 +275,18 @@ public:
     Tetromino(TetrominoType t) {
         type = t;
         colour = new Colour(type);
-        x = 5;
+        x = 0;
         y = 0;
         rotation = 0;
         /*
         switch (type) {
             case I:
+                x = 4;
+                y = 0;
                 break;
             case O:
+                x = 4;
+                y = 0;
                 break;
             case T:
                 break;
@@ -305,8 +310,25 @@ public:
 
     }
 
-    void move() {
+    void move(int dx, int dy) {
+        /*
+        // handle in collision detection
+        if (dx == -1 && x > 0) {
+            x += dx;
+        }
 
+        if (dx == 1 && x < 9) {
+            x += dx;
+        }
+
+        if (dy == 1 && y < 20) {
+            y += dy;
+        }
+        */
+
+        x += dx;
+        y += dy;
+        //std::cout << x << y << std::endl; // debugging
     }
 
     void draw(SDL_Renderer *renderer) {
@@ -314,7 +336,7 @@ public:
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (pieces[type][rotation][i][j] == 1) {
-                    SDL_Rect rect{(x + i) * 30, (y + j) * 30, 30, 30};
+                    SDL_Rect rect{(x + i) * SCREEN_WIDTH / BOARD_WIDTH, (y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
                     SDL_RenderFillRect(renderer, &rect);
                 }
             }
@@ -325,7 +347,7 @@ private:
     Colour *colour;
     int x;
     int y;
-    int rotation; // index of rotation in pieces array
+    int rotation; // index of rotation in pieces array, must be between 0 and 3
 };
 
 class Board {
@@ -381,6 +403,7 @@ int main() {
 
     SDL_Event e;
     bool quit = false;
+    Tetromino t(O);
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -392,15 +415,18 @@ int main() {
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_LEFT:
+                        t.move(-1, 0);
                         // move piece left
                         break;
                     case SDLK_RIGHT:
+                        t.move(1, 0);
                         // move piece right
                         break;
                     case SDLK_UP:
                         // rotate
                         break;
                     case SDLK_DOWN:
+                        t.move(0, 1);
                         // move piece down
                         break;
                     case SDLK_SPACE:
@@ -413,7 +439,7 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
         SDL_RenderClear(renderer);
 
-        Tetromino t(L);
+        //Tetromino t(O);
         t.draw(renderer);
         SDL_RenderPresent(renderer);
         
