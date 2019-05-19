@@ -468,9 +468,9 @@ public:
     }
     */
 
-    Uint8 getRed() { return red; }
-    Uint8 getGreen() { return green; }
-    Uint8 getBlue() { return blue; }
+    Uint8 getRed() const { return red; }
+    Uint8 getGreen() const { return green; }
+    Uint8 getBlue() const { return blue; }
 private:
     //BlockColour colour;
     Uint8 red;
@@ -481,7 +481,12 @@ private:
 class Tetromino {
 public:
     Tetromino(TetrominoType t) {
-        colour = new Colour(t);
+        type = t;
+        colour = new Colour(type);
+        x = 5;
+        y = 0;
+        rotation = 0;
+        /*
         switch (type) {
             case I:
                 break;
@@ -498,6 +503,11 @@ public:
             case L:
                 break;
         }
+        */
+        //x = 5;
+        //y = 0;
+        
+
     }
 
     ~Tetromino() {
@@ -512,8 +522,16 @@ public:
 
     }
 
-    void draw() {
-
+    void draw(SDL_Renderer *renderer) {
+        SDL_SetRenderDrawColor(renderer, colour->getRed(), colour->getGreen(), colour->getBlue(), 0xff);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (pieces[type][rotation][i][j] == 1) {
+                    SDL_Rect rect{(x + i) * 30, (y + j) * 30, 30, 30};
+                    SDL_RenderFillRect(renderer, &rect);
+                }
+            }
+        }
     }
 private:
     TetrominoType type;
@@ -563,7 +581,7 @@ bool init() {
     return true;
 }
 
-void quit() {
+void close() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -574,11 +592,47 @@ int main() {
         return 1;
     }
 
+    SDL_Event e;
+    bool quit = false;
+    
+    while (!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+                break;
+            }
 
-    SDL_Delay(2000);
+            if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_LEFT:
+                        // move piece left
+                        break;
+                    case SDLK_RIGHT:
+                        // move piece right
+                        break;
+                    case SDLK_UP:
+                        // rotate
+                        break;
+                    case SDLK_DOWN:
+                        // move piece down
+                        break;
+                    case SDLK_SPACE:
+                        // hard drop
+                        break;
+                }
+            }
+        }
 
-    quit();
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xff);
+        SDL_RenderClear(renderer);
 
+        Tetromino t(L);
+        t.draw(renderer);
+        SDL_RenderPresent(renderer);
+        
+    }
+
+    close();
 
     return 0;
 }
