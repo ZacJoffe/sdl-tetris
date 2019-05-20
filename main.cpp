@@ -342,7 +342,7 @@ public:
 
         x += dx;
         y += dy;
-        //std::cout << x << y << std::endl; // debugging
+        std::cout << x << y << std::endl; // debugging
     }
 
     void draw(SDL_Renderer *renderer) {
@@ -372,11 +372,17 @@ private:
 class Board {
 private:
     int board[BOARD_WIDTH][BOARD_HEIGHT];
-    //Piece piece;
-
 public:
     Board() {
+        for (int i = 0; i < BOARD_WIDTH; i++) {
+            for (int j = 0; j < BOARD_HEIGHT; j++) {
+                board[i][j] = 0;
+            }
+        }
         //board = {{0}};
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+
+        }
     }
 
     ~Board() {
@@ -392,6 +398,16 @@ public:
                 }
             }
         }
+
+        for (int x = SCREEN_WIDTH / BOARD_WIDTH; x < SCREEN_WIDTH; x += SCREEN_WIDTH / BOARD_WIDTH) {
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xff);
+            SDL_RenderDrawLine(renderer, x, 0, x, SCREEN_HEIGHT);
+        }
+
+        for (int y = SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT; y < SCREEN_HEIGHT; y += SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT) {
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xff);
+            SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
+        }
     }
 
     bool collision(Tetromino t) {
@@ -400,6 +416,8 @@ public:
                 if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
                     int xLocation = t.getXPos() + i;
                     int yLocation = t.getYPos() + j;
+
+                    //std::cout << board[xLocation][yLocation] << t.getXPos() << t.getYPos() << std::endl;
 
                     if (board[xLocation][yLocation] == 1) {
                         return true;
@@ -533,6 +551,7 @@ int main() {
 
         //Tetromino t(O);
         t.draw(renderer);
+        b.draw(renderer);
         SDL_RenderPresent(renderer);
         
     }
