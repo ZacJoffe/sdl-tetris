@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 //#include <string>
 
 #define SCREEN_WIDTH 320
@@ -208,7 +210,7 @@ const int pieces[NUM_PIECES][NUM_ORIENTATIONS][4][4] {
 
 class Colour {
 public:
-    //Colour() {} // needed?
+    Colour() {} // needed?
     Colour(TetrominoType t) {
         switch (t) {
             case I:
@@ -274,7 +276,7 @@ class Tetromino {
 public:
     Tetromino(TetrominoType t) {
         type = t;
-        colour = new Colour(type);
+        colour = Colour(type);
         x = 0;
         y = 0;
         rotation = 0;
@@ -303,7 +305,7 @@ public:
     }
 
     ~Tetromino() {
-        delete colour;
+        //delete colour;
     }
 
     void rotateCCW() {
@@ -344,7 +346,7 @@ public:
     }
 
     void draw(SDL_Renderer *renderer) {
-        SDL_SetRenderDrawColor(renderer, colour->getRed(), colour->getGreen(), colour->getBlue(), 0xff);
+        SDL_SetRenderDrawColor(renderer, colour.getRed(), colour.getGreen(), colour.getBlue(), 0xff);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (pieces[type][rotation][i][j] == 1) {
@@ -354,9 +356,14 @@ public:
             }
         }
     }
+
+    TetrominoType getType() const { return type; }
+    int getRotation() const { return rotation; }
+    int getXPos() const { return x; }
+    int getYPos() const { return y; }
 private:
     TetrominoType type;
-    Colour *colour;
+    Colour colour;
     int x;
     int y;
     int rotation; // index of rotation in pieces array, must be between 0 and 3
@@ -369,10 +376,62 @@ private:
 
 public:
     Board() {
-        
+        //board = {{0}};
     }
 
     ~Board() {
+
+    }
+
+    void draw(SDL_Renderer *renderer) {
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
+                if (board[x][y] == 1) {
+                    SDL_Rect rect{x * SCREEN_WIDTH / BOARD_WIDTH, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
+                    SDL_RenderFillRect(renderer, &rect);
+                }
+            }
+        }
+    }
+
+    bool collision(Tetromino t) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
+                    int xLocation = t.getXPos() + i;
+                    int yLocation = t.getYPos() + j;
+
+                    if (board[xLocation][yLocation] == 1) {
+                        return true;
+                    }
+
+                    if (xLocation < 0 || xLocation > 9) {
+                        return true;
+                    }
+
+                    if (yLocation > 22) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    void setBlock(Tetromino t) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
+                    int xLocation = t.getXPos() + i;
+                    int yLocation = t.getYPos() + j;
+                    board[xLocation][yLocation] = true;
+                }
+            }
+        }
+    }
+
+    void clearPieces() {
 
     }
 };
@@ -413,9 +472,13 @@ int main() {
         return 1;
     }
 
+    srand(time(NULL));
+
     SDL_Event e;
     bool quit = false;
-    Tetromino t(S);
+    Tetromino t(static_cast<TetrominoType>(rand() % 7));
+    Tetromino *collisionTest;
+    Board b;
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -427,11 +490,20 @@ int main() {
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_LEFT:
-                        t.move(-1, 0);
+                        collisionTest = &t;
+                        collisionTest->move(-1, 0);
+                        if (!b.collision(*collisionTest)) {
+                            t.move(-1, 0);
+                        }
                         // move piece left
                         break;
                     case SDLK_RIGHT:
-                        t.move(1, 0);
+                        collisionTest = &t;
+                        collisionTest->move(1, 0);
+                        if (!b.collision(*collisionTest)) {
+                            t.move(1, 0);
+                        }
+                        //t.move(1, 0);
                         // move piece right
                         break;
                     case SDLK_UP:
