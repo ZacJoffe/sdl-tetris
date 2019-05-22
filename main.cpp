@@ -278,8 +278,8 @@ public:
     Tetromino(TetrominoType t) {
         type = t;
         colour = Colour(type);
-        x = 0;
-        y = 0;
+        x = 4;
+        y = -2;
         rotation = 0;
         /*
         switch (type) {
@@ -343,7 +343,7 @@ public:
 
         x += dx;
         y += dy;
-        std::cout << x << y << std::endl; // debugging
+        std::cout << x << " " << y << std::endl; // debugging
     }
 
     void draw(SDL_Renderer *renderer) {
@@ -424,7 +424,7 @@ public:
                         return true;
                     }
 
-                    if (xLocation < 0 || xLocation > 9) {
+                    if (xLocation < 0 || xLocation > 8) {
                         return true;
                     }
 
