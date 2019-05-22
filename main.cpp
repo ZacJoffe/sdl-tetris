@@ -274,6 +274,7 @@ private:
 
 class Tetromino {
 public:
+    Tetromino() {}
     Tetromino(TetrominoType t) {
         type = t;
         colour = Colour(type);
@@ -495,7 +496,7 @@ int main() {
     SDL_Event e;
     bool quit = false;
     Tetromino t(static_cast<TetrominoType>(rand() % 7));
-    Tetromino *collisionTest;
+    Tetromino collisionTest;
     Board b;
     
     while (!quit) {
@@ -508,17 +509,17 @@ int main() {
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_LEFT:
-                        collisionTest = &t;
-                        collisionTest->move(-1, 0);
-                        if (!b.collision(*collisionTest)) {
+                        collisionTest = t;
+                        collisionTest.move(-1, 0);
+                        if (!b.collision(collisionTest)) {
                             t.move(-1, 0);
                         }
                         // move piece left
                         break;
                     case SDLK_RIGHT:
-                        collisionTest = &t;
-                        collisionTest->move(1, 0);
-                        if (!b.collision(*collisionTest)) {
+                        collisionTest = t;
+                        collisionTest.move(0.5, 0);
+                        if (!b.collision(collisionTest)) {
                             t.move(1, 0);
                         }
                         //t.move(1, 0);
