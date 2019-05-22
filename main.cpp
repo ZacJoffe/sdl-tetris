@@ -438,6 +438,29 @@ public:
         return false;
     }
 
+    bool atFloor(Tetromino t) {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
+                    int xLocation = t.getXPos() + i;
+                    int yLocation = t.getYPos() + j;
+
+                    //std::cout << board[xLocation][yLocation] << t.getXPos() << t.getYPos() << std::endl;
+
+                    if (board[xLocation][yLocation] == 1) {
+                        return true;
+                    }
+
+                    if (yLocation > 19) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     void setBlock(Tetromino t) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -553,6 +576,11 @@ int main() {
                         collisionTest = t;
                         collisionTest.move(0, 1);
                         if (!b.collision(collisionTest)) {
+                            t.move(0, 1);
+                        } else if (b.atFloor(collisionTest)) {
+                            b.setBlock(t);
+                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        } else {
                             t.move(0, 1);
                         }
                         // move piece down
