@@ -428,7 +428,7 @@ public:
                         return true;
                     }
 
-                    if (yLocation > 22) {
+                    if (yLocation > 19) {
                         return true;
                     }
                 }
@@ -526,18 +526,35 @@ int main() {
                         // move piece right
                         break;
                     case SDLK_UP:
-                        t.rotateCW();
+                        collisionTest = t;
+                        collisionTest.rotateCW();
+                        if (!b.collision(collisionTest)) {
+                            t.rotateCW();
+                        }
                         // rotate
                         break;
                     case SDLK_z:
-                        t.rotateCW();
+                        collisionTest = t;
+                        collisionTest.rotateCW();
+                        if (!b.collision(collisionTest)) {
+                            t.rotateCW();
+                        }
                         // rotate
                         break;
                     case SDLK_x:
-                        t.rotateCCW();
+                        collisionTest = t;
+                        collisionTest.rotateCCW();
+                        if (!b.collision(collisionTest)) {
+                            t.rotateCCW();
+                        }
+                        // t.rotateCCW();
                         break;
                     case SDLK_DOWN:
-                        t.move(0, 1);
+                        collisionTest = t;
+                        collisionTest.move(0, 1);
+                        if (!b.collision(collisionTest)) {
+                            t.move(0, 1);
+                        }
                         // move piece down
                         break;
                     case SDLK_SPACE:
