@@ -390,6 +390,17 @@ public:
 
     }
 
+    // debugging function
+    void print() {
+        for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
+            for (int x = 0; x < BOARD_WIDTH; x++) {
+                std::cout << board[x][y] << " ";
+            }
+
+            std::cout << std::endl;
+        }
+    }
+
     void draw(SDL_Renderer *renderer) {
         for (int x = 0; x < BOARD_WIDTH; x++) {
             for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
@@ -418,7 +429,7 @@ public:
                     int xLocation = t.getXPos() + i;
                     int yLocation = t.getYPos() + j;
 
-                    //std::cout << board[xLocation][yLocation] << t.getXPos() << t.getYPos() << std::endl;
+                    std::cout << board[xLocation][yLocation] << " " << t.getXPos() << " " << t.getYPos() << std::endl;
 
                     if (board[xLocation][yLocation] == 1) {
                         return true;
@@ -474,7 +485,11 @@ public:
     }
 
     void clearPieces() {
-
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                
+            }
+        }
     }
 };
 
@@ -541,7 +556,7 @@ int main() {
                         break;
                     case SDLK_RIGHT:
                         collisionTest = t;
-                        collisionTest.move(0.5, 0);
+                        collisionTest.move(1, 0);
                         if (!b.collision(collisionTest)) {
                             t.move(1, 0);
                         }
@@ -586,6 +601,7 @@ int main() {
                         // move piece down
                         break;
                     case SDLK_SPACE:
+                        b.print();
                         // hard drop
                         break;
                 }
