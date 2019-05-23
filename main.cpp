@@ -615,6 +615,16 @@ int main() {
                         // move piece down
                         break;
                     case SDLK_SPACE:
+                        collisionTest = t;
+                        int moveCount = 0;
+                        while (!b.atFloor(collisionTest)) {
+                            collisionTest.move(0, 1);
+                            moveCount++;
+                        }
+                        t.move(0, moveCount - 1);
+                        b.setBlock(t);
+                        b.clearPieces();
+                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         b.print();
                         // hard drop
                         break;
