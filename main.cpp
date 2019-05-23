@@ -508,6 +508,25 @@ public:
             }
         }
     }
+
+    bool failureState() {
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            if (board[x][0] == 1 || board[x][1] == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    void reset() {
+        for (int x = 0; x < BOARD_WIDTH; x++) {
+            for (int y = 0; y < BOARD_HEIGHT; y++) {
+                board[x][y] = 0;
+            }
+        }
+
+    }
 };
 
 SDL_Window *window = nullptr;
@@ -553,6 +572,9 @@ int main() {
     Tetromino t(static_cast<TetrominoType>(rand() % 7));
     Tetromino collisionTest;
     Board b;
+
+    unsigned int lastTime = 0;
+    unsigned int currentTime;
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -607,6 +629,14 @@ int main() {
                     case SDLK_DOWN:
                         collisionTest = t;
                         collisionTest.move(0, 1);
+                        if (b.atFloor(collisionTest)) {
+                            b.setBlock(t);
+                            b.clearPieces();
+                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        } else {
+                            t.move(0, 1);
+                        }
+                        /*
                         if (!b.collision(collisionTest)) {
                             t.move(0, 1);
                         } else if (b.atFloor(collisionTest)) {
@@ -616,7 +646,12 @@ int main() {
                         } else {
                             t.move(0, 1);
                         }
+                        */
                         // move piece down
+                        break;
+                    case SDLK_ESCAPE:
+                        b.reset();
+                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         break;
                     case SDLK_SPACE:
                         collisionTest = t;
@@ -636,6 +671,23 @@ int main() {
             }
         }
 
+        
+
+        currentTime = SDL_GetTicks();
+
+        if (currentTime > lastTime + 1000) {
+            collisionTest = t;
+            collisionTest.move(0, 1);
+            if (b.atFloor(collisionTest)) {
+                b.setBlock(t);
+                b.clearPieces();
+                t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+            } else {
+                t.move(0, 1);
+            }
+            lastTime = currentTime;
+        }
+
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
@@ -644,6 +696,10 @@ int main() {
         b.draw(renderer);
         SDL_RenderPresent(renderer);
 
+        if (b.failureState()) {
+            b.reset();
+            SDL_Delay(1000);
+        } 
     }
 
     close();
