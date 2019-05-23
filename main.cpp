@@ -435,7 +435,7 @@ public:
                         return true;
                     }
 
-                    if (xLocation < 0 || xLocation > 8) {
+                    if (xLocation < 0 || xLocation > 9) {
                         return true;
                     }
 
@@ -485,9 +485,22 @@ public:
     }
 
     void clearPieces() {
-        for (int x = 0; x < BOARD_WIDTH; x++) {
-            for (int y = 0; y < BOARD_HEIGHT; y++) {
-                
+        for (int y = 0; y < BOARD_HEIGHT; y++) {
+            bool filledRow;
+            for (int x = 0; x < BOARD_WIDTH; x++) {
+                filledRow = true;
+                if (board[x][y] == 0) {
+                    filledRow = false;
+                    break;
+                }
+            }
+
+            if (filledRow) {
+                for (int i = y; i > 0; i--) {
+                    for (int x = 0; x < BOARD_WIDTH; x++) {
+                        board[x][i] = board[x][i - 1];
+                    }
+                }
             }
         }
     }
@@ -594,6 +607,7 @@ int main() {
                             t.move(0, 1);
                         } else if (b.atFloor(collisionTest)) {
                             b.setBlock(t);
+                            b.clearPieces();
                             t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         } else {
                             t.move(0, 1);
@@ -615,7 +629,7 @@ int main() {
         t.draw(renderer);
         b.draw(renderer);
         SDL_RenderPresent(renderer);
-        
+
     }
 
     close();
