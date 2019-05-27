@@ -16,7 +16,7 @@
 
 enum TetrominoType { I, O, T, S, Z, J, L };
 
-const int pieces[NUM_PIECES][NUM_ORIENTATIONS][4][4] {
+const int pieces[NUM_PIECES][NUM_ORIENTATIONS][4][4] = {
     {
         // I
         { // starting orientation
@@ -257,11 +257,10 @@ public:
                 green = 127;
                 break;
         }
-    }
-
-    ~Colour() {
 
     }
+
+    ~Colour() {}
 
     Uint8 getRed() const { return red; }
     Uint8 getGreen() const { return green; }
@@ -373,6 +372,7 @@ private:
 class Board {
 private:
     int board[BOARD_WIDTH][BOARD_HEIGHT];
+    int score;
 public:
     Board() {
         for (int i = 0; i < BOARD_WIDTH; i++) {
@@ -380,15 +380,16 @@ public:
                 board[i][j] = 0;
             }
         }
+        /*
         //board = {{0}};
         for (int x = 0; x < BOARD_WIDTH; x++) {
 
         }
+        */
+        score = 0;
     }
 
-    ~Board() {
-
-    }
+    ~Board() {}
 
     // debugging function
     void print() {
@@ -489,6 +490,9 @@ public:
     }
 
     void clearPieces() {
+        // used for scoring
+        int rowsCleared = 0;
+
         for (int y = 0; y < BOARD_HEIGHT; y++) {
             bool filledRow;
             for (int x = 0; x < BOARD_WIDTH; x++) {
@@ -500,6 +504,7 @@ public:
             }
 
             if (filledRow) {
+                rowsCleared++;
                 for (int i = y; i > 0; i--) {
                     for (int x = 0; x < BOARD_WIDTH; x++) {
                         board[x][i] = board[x][i - 1];
@@ -507,6 +512,25 @@ public:
                 }
             }
         }
+
+        switch (rowsCleared) {
+            case 1:
+                score += 40;
+                break;
+            case 2:
+                score += 100;
+                break;
+            case 3:
+                score += 300;
+                break;
+            case 4:
+                score += 1200;
+                break;
+            default:
+                break;
+        }
+
+        std::cout << score << std::endl;
     }
 
     bool failureState() {
@@ -526,6 +550,7 @@ public:
             }
         }
 
+        score = 0;
     }
 };
 
