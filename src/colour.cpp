@@ -45,7 +45,7 @@ Colour::Colour(TetrominoType t) {
             blue = 0;
             green = 127;
             break;
-    }   
+    }
 }
 
 Colour::Colour() {}

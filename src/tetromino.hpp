@@ -223,8 +223,8 @@ public:
 
     void move(int dx, int dy);
 
-    void draw(SDL_Renderer *renderer);
-    
+    void draw(SDL_Renderer *renderer) const;
+
     TetrominoType getType() const;
     int getRotation() const;
     int getXPos() const;

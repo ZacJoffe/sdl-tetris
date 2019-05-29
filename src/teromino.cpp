@@ -71,7 +71,7 @@ void Tetromino::move(int dx, int dy) {
     std::cout << x << " " << y << std::endl; // debugging
 }
 
-void Tetromino::draw(SDL_Renderer *renderer) {
+void Tetromino::draw(SDL_Renderer *renderer) const {
     SDL_SetRenderDrawColor(renderer, colour.getRed(), colour.getGreen(), colour.getBlue(), 255);
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {

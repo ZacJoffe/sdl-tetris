@@ -11,17 +11,17 @@ public:
     Board();
     ~Board();
 
-    void print(); //const?
-    void draw(SDL_Renderer *renderer);
+    void print() const;
+    void draw(SDL_Renderer *renderer) const;
 
-    bool collision(Tetromino t);
-    bool atFloor(Tetromino t);
+    bool collision(const Tetromino &t) const;
+    bool atFloor(const Tetromino &t) const;
 
     void setBlock(Tetromino t);
 
     void clearPieces();
 
-    bool failureState();
+    bool failureState() const;
 
     void reset();
 };

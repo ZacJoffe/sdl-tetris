@@ -18,7 +18,7 @@ Board::Board() {
 
 Board::~Board() {}
 
-void Board::print() {
+void Board::print() const {
     for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
         for (int x = 0; x < BOARD_WIDTH; x++) {
             std::cout << board[x][y] << " ";
@@ -28,7 +28,7 @@ void Board::print() {
     }
 }
 
-void Board::draw(SDL_Renderer *renderer) {
+void Board::draw(SDL_Renderer *renderer) const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
             if (board[x][y] == 1) {
@@ -52,8 +52,8 @@ void Board::draw(SDL_Renderer *renderer) {
         SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
     }
 }
-    
-bool Board::collision(Tetromino t) {
+
+bool Board::collision(const Tetromino &t) const {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
@@ -76,11 +76,11 @@ bool Board::collision(Tetromino t) {
             }
         }
     }
-    
+
     return false;
 }
 
-bool Board::atFloor(Tetromino t) {
+bool Board::atFloor(const Tetromino &t) const {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
@@ -159,7 +159,7 @@ void Board::clearPieces() {
     std::cout << score << std::endl;
 }
 
-bool Board::failureState() {
+bool Board::failureState() const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         if (board[x][0] == 1 || board[x][1] == 1) {
             return true;
