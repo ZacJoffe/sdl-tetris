@@ -38,6 +38,19 @@ void close() {
     SDL_Quit();
 }
 
+void drawShadow(SDL_Renderer *renderer, const Board &b, const Tetromino &t) {
+    Tetromino collisionTest = t;
+    int moveCount = 0;
+    while (!b.atFloor(collisionTest)) {
+        collisionTest.move(0, 1);
+        moveCount++;
+    }
+
+    collisionTest.move(0, -1);
+
+    collisionTest.draw(renderer);
+}
+
 int main() {
     if (!init()) {
         return 1;
@@ -172,6 +185,7 @@ int main() {
         //Tetromino t(O);
         t.draw(renderer);
         b.draw(renderer);
+        drawShadow(renderer, b, t);
         SDL_RenderPresent(renderer);
 
         if (b.failureState()) {
