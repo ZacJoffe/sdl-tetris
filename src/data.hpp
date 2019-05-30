@@ -15,6 +15,6 @@ public:
     void setState(int state);
     void setColour(Colour c);
 
-    int getState();
-    Colour getColour();
+    int getState() const;
+    Colour getColour() const;
 };

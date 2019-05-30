@@ -24,5 +24,5 @@ void Data::setColour(Colour c) {
     this->c = c;
 }
 
-int Data::getState() { return this->state; }
-Colour Data::getColour() { return this->c; }
+int Data::getState() const { return this->state; }
+Colour Data::getColour() const { return this->c; }
