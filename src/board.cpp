@@ -4,15 +4,11 @@
 Board::Board() {
     for (int i = 0; i < BOARD_WIDTH; i++) {
         for (int j = 0; j < BOARD_HEIGHT; j++) {
-            board[i][j] = 0;
+            // board[i][j] = 0;
+            board[i][j] = Data();
         }
     }
-    /*
-    //board = {{0}};
-    for (int x = 0; x < BOARD_WIDTH; x++) {
 
-    }
-    */
     score = 0;
 }
 
@@ -21,7 +17,7 @@ Board::~Board() {}
 void Board::print() const {
     for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
         for (int x = 0; x < BOARD_WIDTH; x++) {
-            std::cout << board[x][y] << " ";
+            std::cout << board[x][y].getState() << " ";
         }
 
         std::cout << std::endl;

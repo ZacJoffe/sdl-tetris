@@ -2,10 +2,12 @@
 
 #include <SDL2/SDL.h>
 #include "tetromino.hpp"
+#include "data.hpp"
 
 class Board {
 private:
-    int board[BOARD_WIDTH][BOARD_HEIGHT];
+    // int board[BOARD_WIDTH][BOARD_HEIGHT];
+    Data board[BOARD_WIDTH][BOARD_HEIGHT];
     int score;
 public:
     Board();
