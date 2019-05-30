@@ -27,7 +27,7 @@ void Board::print() const {
 void Board::draw(SDL_Renderer *renderer) const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
-            if (board[x][y] == 1) {
+            if (board[x][y].getState() == 1) {
                 SDL_Rect rect{x * SCREEN_WIDTH / BOARD_WIDTH, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
 
                 // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -56,9 +56,9 @@ bool Board::collision(const Tetromino &t) const {
                 int xLocation = t.getXPos() + i;
                 int yLocation = t.getYPos() + j;
 
-                std::cout << board[xLocation][yLocation] << " " << t.getXPos() << " " << t.getYPos() << std::endl;
+                std::cout << board[xLocation][yLocation].getState() << " " << t.getXPos() << " " << t.getYPos() << std::endl;
 
-                if (board[xLocation][yLocation] == 1) {
+                if (board[xLocation][yLocation].getState() == 1) {
                     return true;
                 }
 
@@ -85,7 +85,7 @@ bool Board::atFloor(const Tetromino &t) const {
 
                 //std::cout << board[xLocation][yLocation] << t.getXPos() << t.getYPos() << std::endl;
 
-                if (board[xLocation][yLocation] == 1) {
+                if (board[xLocation][yLocation].getState() == 1) {
                     return true;
                 }
 
@@ -105,7 +105,8 @@ void Board::setBlock(Tetromino t) {
             if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
                 int xLocation = t.getXPos() + i;
                 int yLocation = t.getYPos() + j;
-                board[xLocation][yLocation] = true;
+                // board[xLocation][yLocation] = true;
+                board[xLocation][yLocation].setState(1);
             }
         }
     }
@@ -119,7 +120,7 @@ void Board::clearPieces() {
         bool filledRow;
         for (int x = 0; x < BOARD_WIDTH; x++) {
             filledRow = true;
-            if (board[x][y] == 0) {
+            if (board[x][y].getState() == 0) {
                 filledRow = false;
                 break;
             }
@@ -129,7 +130,8 @@ void Board::clearPieces() {
             rowsCleared++;
             for (int i = y; i > 0; i--) {
                 for (int x = 0; x < BOARD_WIDTH; x++) {
-                    board[x][i] = board[x][i - 1];
+                    // board[x][i] = board[x][i - 1];
+                    board[x][i].setState(board[x][i - 1].getState());
                 }
             }
         }
@@ -157,7 +159,7 @@ void Board::clearPieces() {
 
 bool Board::failureState() const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
-        if (board[x][0] == 1 || board[x][1] == 1) {
+        if (board[x][0].getState() == 1 || board[x][1].getState() == 1) {
             return true;
         }
     }
@@ -168,7 +170,8 @@ bool Board::failureState() const {
 void Board::reset() {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_HEIGHT; y++) {
-            board[x][y] = 0;
+            // board[x][y] = 0;
+            board[x][y] = Data();
         }
     }
 
