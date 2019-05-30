@@ -226,6 +226,7 @@ public:
     void draw(SDL_Renderer *renderer) const;
 
     TetrominoType getType() const;
+    Colour getColour() const;
     int getRotation() const;
     int getXPos() const;
     int getYPos() const;

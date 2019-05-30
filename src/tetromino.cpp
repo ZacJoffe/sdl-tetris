@@ -84,7 +84,7 @@ void Tetromino::draw(SDL_Renderer *renderer) const {
 }
 
 TetrominoType Tetromino::getType() const { return type; }
-
+Colour Tetromino::getColour() const { return colour; }
 int Tetromino::getRotation() const { return rotation; }
 int Tetromino::getXPos() const { return x; }
 int Tetromino::getYPos() const { return y; }

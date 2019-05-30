@@ -30,8 +30,9 @@ void Board::draw(SDL_Renderer *renderer) const {
             if (board[x][y].getState() == 1) {
                 SDL_Rect rect{x * SCREEN_WIDTH / BOARD_WIDTH, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
 
-                // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                Colour c = board[x][y].getColour();
+                // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                SDL_SetRenderDrawColor(renderer, c.getRed(), c.getGreen(), c.getBlue(), 255);
                 SDL_RenderFillRect(renderer, &rect);
             }
         }
@@ -105,8 +106,9 @@ void Board::setBlock(Tetromino t) {
             if (pieces[t.getType()][t.getRotation()][i][j] == 1) {
                 int xLocation = t.getXPos() + i;
                 int yLocation = t.getYPos() + j;
-                // board[xLocation][yLocation] = true;
-                board[xLocation][yLocation].setState(1);
+
+                // board[xLocation][yLocation].setState(1);
+                board[xLocation][yLocation] = Data(1, t.getColour());
             }
         }
     }
