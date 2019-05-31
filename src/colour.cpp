@@ -45,6 +45,11 @@ Colour::Colour(TetrominoType t) {
             blue = 0;
             green = 127;
             break;
+        case NONE:
+            red = 180;
+            blue = 180;
+            green = 180;
+            break;
     }
 }
 

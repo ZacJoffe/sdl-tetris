@@ -1,6 +1,19 @@
 #include <iostream>
 #include "board.hpp"
 
+void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) {
+    Tetromino collisionTest = t;
+    int moveCount = 0;
+    while (!this->atFloor(collisionTest)) {
+        collisionTest.move(0, 1);
+        moveCount++;
+    }
+
+    collisionTest.move(0, -1);
+
+    collisionTest.draw(renderer);
+}
+
 Board::Board() {
     for (int i = 0; i < BOARD_WIDTH; i++) {
         for (int j = 0; j < BOARD_HEIGHT; j++) {
@@ -24,7 +37,7 @@ void Board::print() const {
     }
 }
 
-void Board::draw(SDL_Renderer *renderer) const {
+void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
             if (board[x][y].getState() == 1) {
@@ -48,6 +61,9 @@ void Board::draw(SDL_Renderer *renderer) const {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
     }
+
+    // shadow
+    // this->drawShadow(renderer, t);
 }
 
 bool Board::collision(const Tetromino &t) const {

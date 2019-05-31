@@ -88,3 +88,7 @@ Colour Tetromino::getColour() const { return colour; }
 int Tetromino::getRotation() const { return rotation; }
 int Tetromino::getXPos() const { return x; }
 int Tetromino::getYPos() const { return y; }
+
+void Tetromino::setColour(Colour c) {
+    colour = c;
+}

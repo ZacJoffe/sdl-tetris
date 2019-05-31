@@ -47,6 +47,7 @@ void drawShadow(SDL_Renderer *renderer, const Board &b, const Tetromino &t) {
     }
 
     collisionTest.move(0, -1);
+    collisionTest.setColour(Colour(NONE));
 
     collisionTest.draw(renderer);
 }
@@ -66,6 +67,9 @@ int main() {
 
     unsigned int lastTime = 0;
     unsigned int currentTime;
+
+    // shift holding
+    Tetromino held = Tetromino();
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -158,11 +162,19 @@ int main() {
                         b.print();
                         // hard drop
                         break;
+                    /*
+                    case SDLK_LSHIFT: // work on this lol
+                        // if emtpy
+                        held = t;
+                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        // else, swap
+                        t = held;
+                        held = Tetromino();
+                        break;
+                    */
                 }
             }
         }
-
-        
 
         currentTime = SDL_GetTicks();
 
@@ -184,7 +196,7 @@ int main() {
 
         //Tetromino t(O);
         t.draw(renderer);
-        b.draw(renderer);
+        b.draw(renderer, t);
         drawShadow(renderer, b, t);
         SDL_RenderPresent(renderer);
 

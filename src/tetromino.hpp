@@ -230,4 +230,6 @@ public:
     int getRotation() const;
     int getXPos() const;
     int getYPos() const;
+
+    void setColour(Colour c);
 };

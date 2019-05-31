@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 
-enum TetrominoType { I, O, T, S, Z, J, L };
+enum TetrominoType { I, O, T, S, Z, J, L, NONE };
 
 typedef u_int8_t Uint8;
 
