@@ -194,10 +194,8 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        //Tetromino t(O);
         t.draw(renderer);
         b.draw(renderer, t);
-        drawShadow(renderer, b, t);
         SDL_RenderPresent(renderer);
 
         if (b.failureState()) {
