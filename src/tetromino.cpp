@@ -31,7 +31,10 @@ Tetromino::Tetromino(TetrominoType t) {
     */
 }
 
-Tetromino::Tetromino() {}
+Tetromino::Tetromino() {
+    type = NONE; // used for check in HoldStack::isHeld() function
+}
+
 Tetromino::~Tetromino() {}
 
 void Tetromino::rotateCCW() {

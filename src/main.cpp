@@ -6,6 +6,7 @@
 #include "board.hpp"
 #include "tetromino.hpp"
 #include "colour.hpp"
+#include "holdStack.hpp"
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
@@ -69,7 +70,8 @@ int main() {
     unsigned int currentTime;
 
     // shift holding
-    Tetromino held = Tetromino();
+    // Tetromino held = Tetromino();
+    HoldStack held;
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -149,19 +151,22 @@ int main() {
                         t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         break;
                     case SDLK_SPACE:
-                        collisionTest = t;
-                        int moveCount = 0;
-                        while (!b.atFloor(collisionTest)) {
-                            collisionTest.move(0, 1);
-                            moveCount++;
+                        {
+                            collisionTest = t;
+                            int moveCount = 0;
+                            while (!b.atFloor(collisionTest)) {
+                                collisionTest.move(0, 1);
+                                moveCount++;
+                            }
+                            t.move(0, moveCount - 1);
+                            b.setBlock(t);
+                            b.clearPieces();
+                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            b.print();
+                            // hard drop
+                            break;
                         }
-                        t.move(0, moveCount - 1);
-                        b.setBlock(t);
-                        b.clearPieces();
-                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
-                        b.print();
-                        // hard drop
-                        break;
+                        
                     /*
                     case SDLK_LSHIFT: // work on this lol
                         // if emtpy
@@ -172,6 +177,16 @@ int main() {
                         held = Tetromino();
                         break;
                     */
+                    case SDLK_LSHIFT: // work on this lol
+                        {
+                            if (held.isHeld()) {
+                                held.swap(&t);
+                            } else {
+                                held.push(t);
+                                t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            }
+                            break;
+                        }
                 }
             }
         }
