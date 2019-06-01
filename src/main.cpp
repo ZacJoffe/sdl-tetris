@@ -194,6 +194,7 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        drawShadow(renderer, b, t);
         t.draw(renderer);
         b.draw(renderer, t);
         SDL_RenderPresent(renderer);
