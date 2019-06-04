@@ -1,7 +1,7 @@
 #include <iostream>
 #include "board.hpp"
 
-void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) {
+void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) const {
     Tetromino collisionTest = t;
     int moveCount = 0;
     while (!this->atFloor(collisionTest)) {
@@ -10,6 +10,7 @@ void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) {
     }
 
     collisionTest.move(0, -1);
+    collisionTest.setColour(Colour(NONE));
 
     collisionTest.draw(renderer);
 }
@@ -63,7 +64,7 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
     }
 
     // shadow
-    // this->drawShadow(renderer, t);
+    this->drawShadow(renderer, t);
 }
 
 bool Board::collision(const Tetromino &t) const {

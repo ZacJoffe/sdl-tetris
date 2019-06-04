@@ -10,7 +10,7 @@ private:
     Data board[BOARD_WIDTH][BOARD_HEIGHT];
     int score;
 
-    void drawShadow(SDL_Renderer *renderer, const Tetromino &t);
+    void drawShadow(SDL_Renderer *renderer, const Tetromino &t) const;
 public:
     Board();
     ~Board();

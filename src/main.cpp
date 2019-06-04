@@ -33,31 +33,20 @@ bool init() {
     return true;
 }
 
+// destroy all instances of sdl and quit
 void close() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-void drawShadow(SDL_Renderer *renderer, const Board &b, const Tetromino &t) {
-    Tetromino collisionTest = t;
-    int moveCount = 0;
-    while (!b.atFloor(collisionTest)) {
-        collisionTest.move(0, 1);
-        moveCount++;
-    }
-
-    collisionTest.move(0, -1);
-    collisionTest.setColour(Colour(NONE));
-
-    collisionTest.draw(renderer);
-}
-
 int main() {
+	// initialize sdl
     if (!init()) {
         return 1;
     }
 
+	// random seed
     srand(time(NULL));
 
     SDL_Event e;
@@ -70,7 +59,6 @@ int main() {
     unsigned int currentTime;
 
     // shift holding
-    // Tetromino held = Tetromino();
     HoldStack held;
     bool swapped = false;
     
@@ -209,7 +197,6 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        drawShadow(renderer, b, t);
         t.draw(renderer);
         b.draw(renderer, t);
         SDL_RenderPresent(renderer);
