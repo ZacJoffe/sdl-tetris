@@ -72,6 +72,7 @@ int main() {
     // shift holding
     // Tetromino held = Tetromino();
     HoldStack held;
+    bool swapped = false;
     
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -123,13 +124,14 @@ int main() {
                         }
                         // t.rotateCCW();
                         break;
-                    case SDLK_DOWN:
+					case SDLK_DOWN:
                         collisionTest = t;
                         collisionTest.move(0, 1);
                         if (b.atFloor(collisionTest)) {
                             b.setBlock(t);
                             b.clearPieces();
                             t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            swapped = false;
                         } else {
                             t.move(0, 1);
                         }
@@ -150,7 +152,7 @@ int main() {
                         b.reset();
                         t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         break;
-                    case SDLK_SPACE:
+					case SDLK_SPACE:
                         {
                             collisionTest = t;
                             int moveCount = 0;
@@ -162,32 +164,27 @@ int main() {
                             b.setBlock(t);
                             b.clearPieces();
                             t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+							swapped = false;
                             b.print();
                             // hard drop
                             break;
-                        }
-                        
-                    /*
-                    case SDLK_LSHIFT: // work on this lol
-                        // if emtpy
-                        held = t;
-                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
-                        // else, swap
-                        t = held;
-                        held = Tetromino();
-                        break;
-                    */
-                    case SDLK_LSHIFT: // work on this lol
-                        {
-                            // std::cout << held.isHeld() << std::endl;
-                            if (held.isHeld()) {
-                                held.swap(t);
-                            } else {
-                                held.push(t);
-                                t = Tetromino(static_cast<TetrominoType>(rand() % 7));
-                            }
-                            break;
-                        }
+						}
+					case SDLK_LSHIFT:
+						{
+							// std::cout << held.isHeld() << std::endl;
+							if (held.isHeld()) {
+								if (!swapped) {
+									held.swap(t);
+									swapped = true;
+								}
+							} else {
+								held.push(t);
+								t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+								swapped = true;
+							}
+							break;
+						}
+						
                 }
             }
         }
@@ -196,11 +193,13 @@ int main() {
 
         if (currentTime > lastTime + 1000) {
             collisionTest = t;
+            collisionTest = t;
             collisionTest.move(0, 1);
             if (b.atFloor(collisionTest)) {
                 b.setBlock(t);
                 b.clearPieces();
                 t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                swapped = false;
             } else {
                 t.move(0, 1);
             }
