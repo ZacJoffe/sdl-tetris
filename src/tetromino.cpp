@@ -74,6 +74,12 @@ void Tetromino::move(int dx, int dy) {
     std::cout << x << " " << y << std::endl; // debugging
 }
 
+void Tetromino::reset() {
+    x = 4;
+    y = -2;
+    rotation = 0;
+}
+
 void Tetromino::draw(SDL_Renderer *renderer) const {
     SDL_SetRenderDrawColor(renderer, colour.getRed(), colour.getGreen(), colour.getBlue(), 255);
     for (int i = 0; i < 4; i++) {

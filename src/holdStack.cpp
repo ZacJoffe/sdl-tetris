@@ -23,4 +23,6 @@ void HoldStack::swap(Tetromino &t) {
     Tetromino temp = this->t;
     this->t = t;
     t = temp;
+
+    t.reset();
 }

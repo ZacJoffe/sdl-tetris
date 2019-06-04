@@ -222,6 +222,7 @@ public:
     void rotateCW();
 
     void move(int dx, int dy);
+    void reset();
 
     void draw(SDL_Renderer *renderer) const;
 
