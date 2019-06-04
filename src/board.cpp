@@ -39,6 +39,7 @@ void Board::print() const {
 }
 
 void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
+    // board
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
             if (board[x][y].getState() == 1) {
@@ -52,6 +53,12 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
         }
     }
 
+    // tetromino shadow (render first so tetromino will overlap piece)
+    this->drawShadow(renderer, t);
+
+    // tetromino 
+    t.draw(renderer);
+
     // grid lines
     for (int x = SCREEN_WIDTH / BOARD_WIDTH; x < SCREEN_WIDTH; x += SCREEN_WIDTH / BOARD_WIDTH) {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -62,9 +69,6 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH, y);
     }
-
-    // shadow
-    this->drawShadow(renderer, t);
 }
 
 bool Board::collision(const Tetromino &t) const {

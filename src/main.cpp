@@ -41,7 +41,6 @@ void close() {
 }
 
 int main() {
-	// initialize sdl
     if (!init()) {
         return 1;
     }
@@ -197,7 +196,6 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        t.draw(renderer);
         b.draw(renderer, t);
         SDL_RenderPresent(renderer);
 
