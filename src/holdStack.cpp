@@ -11,16 +11,16 @@ HoldStack::HoldStack() {
 HoldStack::~HoldStack() {}
 
 bool HoldStack::isHeld() const {
-    return ((this->t).getType() == NONE);
+    return ((this->t).getType() != NONE);
 }
 
 void HoldStack::push(const Tetromino &t) {
     this->t = t;
 }
 
-void HoldStack::swap(Tetromino *t) {
+void HoldStack::swap(Tetromino &t) {
     // test??
     Tetromino temp = this->t;
-    this->t = *t;
-    *t = temp;
+    this->t = t;
+    t = temp;
 }

@@ -179,8 +179,9 @@ int main() {
                     */
                     case SDLK_LSHIFT: // work on this lol
                         {
+                            // std::cout << held.isHeld() << std::endl;
                             if (held.isHeld()) {
-                                held.swap(&t);
+                                held.swap(t);
                             } else {
                                 held.push(t);
                                 t = Tetromino(static_cast<TetrominoType>(rand() % 7));

@@ -10,10 +10,9 @@ public:
     HoldStack();
     ~HoldStack();
 
-    void push(const Tetromino &t);
-
     // returns true if this->t has a value
     bool isHeld() const;
 
-    void swap(Tetromino *t);
+    void push(const Tetromino &t);
+    void swap(Tetromino &t);
 };
