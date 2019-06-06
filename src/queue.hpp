@@ -10,10 +10,10 @@ private:
     TetrominoType nextQueue[QUEUESIZE];
 
     void fillQueue(TetrominoType t[]);
-    bool contains(const TetrominoType t[], TetrominoType type) const;
+    bool contains(TetrominoType t[], TetrominoType type) const;
 
     void enqueue(TetrominoType t);
-    void fillNext();
+    // void fillNext();
     
     // int getNextLength() const;
     bool isNextEmpty() const;

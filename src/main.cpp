@@ -7,6 +7,7 @@
 #include "tetromino.hpp"
 #include "colour.hpp"
 #include "holdStack.hpp"
+#include "queue.hpp"
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
@@ -53,8 +54,13 @@ int main() {
     SDL_Event e;
     bool quit = false;
 
+    // instantiate queue object
+    Queue q;
+    q.print();
+
     // instantiate game objects
-    Tetromino t(static_cast<TetrominoType>(rand() % 7)); // displayed, piece that player interacts with
+    // Tetromino t(static_cast<TetrominoType>(rand() % 7)); // displayed, piece that player interacts with
+    Tetromino t(q.dequeue());
     Tetromino collisionTest; // used for testing collision upon input
     Board b; // game board object
 
@@ -123,7 +129,8 @@ int main() {
                         if (b.atFloor(collisionTest)) {
                             b.setBlock(t);
                             b.clearPieces();
-                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            t = Tetromino(q.dequeue());
                             swapped = false;
                         } else {
                             t.move(0, 1);
@@ -132,7 +139,8 @@ int main() {
                     case SDLK_ESCAPE:
                         // restart the game
                         b.reset();
-                        t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        t = Tetromino(q.dequeue());
                         break;
 					case SDLK_SPACE:
                         // hard drop
@@ -146,10 +154,14 @@ int main() {
                             t.move(0, moveCount - 1);
                             b.setBlock(t);
                             b.clearPieces();
-                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                            t = Tetromino(q.dequeue());
 							swapped = false;
                             // b.print();
                             // hard drop
+
+                            q.print();
+
                             break;
 						}
 					case SDLK_LSHIFT:
@@ -162,7 +174,8 @@ int main() {
 								}
 							} else {
 								held.push(t);
-								t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+								// t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                                t = Tetromino(q.dequeue());
 								swapped = true;
 							}
 							break;
@@ -182,7 +195,8 @@ int main() {
             if (b.atFloor(collisionTest)) {
                 b.setBlock(t);
                 b.clearPieces();
-                t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                t = Tetromino(q.dequeue());
                 swapped = false;
             } else {
                 t.move(0, 1);

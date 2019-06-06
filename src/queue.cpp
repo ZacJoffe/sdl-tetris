@@ -17,7 +17,7 @@ void Queue::fillQueue(TetrominoType t[]) {
     }
 }
 
-bool Queue::contains(const TetrominoType t[], const TetrominoType type) const {
+bool Queue::contains(TetrominoType t[], TetrominoType type) const {
     for (int i = 0; i < QUEUESIZE; i++) {
         if (t[i] == type) {
             return true;
@@ -31,9 +31,11 @@ void Queue::enqueue(TetrominoType t) {
     this->currQueue[QUEUESIZE - 1] = t;
 }
 
+/*
 void Queue::fillNext() {
 
 }
+*/
 
 /*
 int Queue::getNextLength() const {
@@ -63,9 +65,13 @@ bool Queue::isNextEmpty() const {
 }
 
 Queue::Queue() {
+    for (int i = 0; i < QUEUESIZE; i++) {
+        this->currQueue[i] = NONE;
+        this->nextQueue[i] = NONE;
+    }
     // fill values of both arrays
-    fillQueue(this->currQueue);
-    fillQueue(this->nextQueue);
+    this->fillQueue(this->currQueue);
+    this->fillQueue(this->nextQueue);
 }
 
 Queue::~Queue() {}
@@ -81,7 +87,7 @@ TetrominoType Queue::dequeue() {
     }
 
     if (this->isNextEmpty()) {
-        this->fillNext();
+        this->fillQueue(this->nextQueue);
     } else {
         this->currQueue[QUEUESIZE - 1] = this->nextQueue[0];
 
@@ -89,6 +95,8 @@ TetrominoType Queue::dequeue() {
             // shift all pieces left one index
             this->nextQueue[i] = this->nextQueue[i + 1];
         }
+
+        this->nextQueue[QUEUESIZE - 1] = NONE;
     }
 
     return t;
