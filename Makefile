@@ -1,3 +1,5 @@
+# derived from https://lazyfoo.net/tutorials/SDL/01_hello_SDL/linux/cli/index.php
+
 #OBJS specifies which files to compile as part of the project
 OBJS = ./src/*
 
