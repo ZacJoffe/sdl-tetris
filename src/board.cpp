@@ -78,7 +78,7 @@ bool Board::collision(const Tetromino &t) const {
                 int xLocation = t.getXPos() + i;
                 int yLocation = t.getYPos() + j;
 
-                std::cout << board[xLocation][yLocation].getState() << " " << t.getXPos() << " " << t.getYPos() << std::endl;
+                // std::cout << board[xLocation][yLocation].getState() << " " << t.getXPos() << " " << t.getYPos() << std::endl;
 
                 if (board[xLocation][yLocation].getState() == 1) {
                     return true;

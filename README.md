@@ -15,17 +15,18 @@ To play it, simply run the binary:
 ./main
 ```
 
-## Controls 
+## Controls
 - Left - Move tetromino left
 - Right - Move tetromino right
 - Down - Soft drop tetromino
 - Up/Z - Rotate tetromino clockwise
 - X - Rotate tetromino counter-clockwise
 - Space - Hard drop tetromino
+- Left Shift - Hold tetromino, or swap with currently held tetromino
 
 ## Future goals:
 - [ ] CMake
-- [ ] Show proper piece colours after being set
+- [X] Show proper piece colours after being set
 - [ ] Display score
 - [ ] Show next piece
 - [ ] Piece queue (at least one of each piece every 7 drops)

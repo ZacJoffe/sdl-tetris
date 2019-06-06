@@ -41,6 +41,7 @@ void close() {
 }
 
 int main() {
+    // initialize sdl
     if (!init()) {
         return 1;
     }
@@ -48,12 +49,16 @@ int main() {
 	// random seed
     srand(time(NULL));
 
+    // create sdl event and quit loop flag
     SDL_Event e;
     bool quit = false;
-    Tetromino t(static_cast<TetrominoType>(rand() % 7));
-    Tetromino collisionTest;
-    Board b;
 
+    // instantiate game objects
+    Tetromino t(static_cast<TetrominoType>(rand() % 7)); // displayed, piece that player interacts with
+    Tetromino collisionTest; // used for testing collision upon input
+    Board b; // game board object
+
+    // time variables for auto-drop
     unsigned int lastTime = 0;
     unsigned int currentTime;
 
@@ -61,6 +66,7 @@ int main() {
     HoldStack held;
     bool swapped = false;
     
+    // main game loop
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -71,47 +77,47 @@ int main() {
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                     case SDLK_LEFT:
+                        // move tetromino left
                         collisionTest = t;
                         collisionTest.move(-1, 0);
                         if (!b.collision(collisionTest)) {
                             t.move(-1, 0);
                         }
-                        // move piece left
                         break;
                     case SDLK_RIGHT:
+                        // move tetromino right
                         collisionTest = t;
                         collisionTest.move(1, 0);
                         if (!b.collision(collisionTest)) {
                             t.move(1, 0);
                         }
-                        //t.move(1, 0);
-                        // move piece right
                         break;
                     case SDLK_UP:
+                        // rotate tetromino clockwise
                         collisionTest = t;
                         collisionTest.rotateCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCW();
                         }
-                        // rotate
                         break;
                     case SDLK_z:
+                        // rotate tetromino clockwise
                         collisionTest = t;
                         collisionTest.rotateCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCW();
                         }
-                        // rotate
                         break;
                     case SDLK_x:
+                        // rotate tetromino counter clockwise 
                         collisionTest = t;
                         collisionTest.rotateCCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCCW();
                         }
-                        // t.rotateCCW();
                         break;
 					case SDLK_DOWN:
+                        // move tetromino down - soft drop
                         collisionTest = t;
                         collisionTest.move(0, 1);
                         if (b.atFloor(collisionTest)) {
@@ -122,24 +128,14 @@ int main() {
                         } else {
                             t.move(0, 1);
                         }
-                        /*
-                        if (!b.collision(collisionTest)) {
-                            t.move(0, 1);
-                        } else if (b.atFloor(collisionTest)) {
-                            b.setBlock(t);
-                            b.clearPieces();
-                            t = Tetromino(static_cast<TetrominoType>(rand() % 7));
-                        } else {
-                            t.move(0, 1);
-                        }
-                        */
-                        // move piece down
                         break;
                     case SDLK_ESCAPE:
+                        // restart the game
                         b.reset();
                         t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         break;
 					case SDLK_SPACE:
+                        // hard drop
                         {
                             collisionTest = t;
                             int moveCount = 0;
@@ -152,13 +148,13 @@ int main() {
                             b.clearPieces();
                             t = Tetromino(static_cast<TetrominoType>(rand() % 7));
 							swapped = false;
-                            b.print();
+                            // b.print();
                             // hard drop
                             break;
 						}
 					case SDLK_LSHIFT:
+                        // swap the current tetromino with a new one
 						{
-							// std::cout << held.isHeld() << std::endl;
 							if (held.isHeld()) {
 								if (!swapped) {
 									held.swap(t);
@@ -171,11 +167,11 @@ int main() {
 							}
 							break;
 						}
-						
                 }
             }
         }
 
+        // check if a second has passed since last auto-drop
         currentTime = SDL_GetTicks();
 
         if (currentTime > lastTime + 1000) {
@@ -193,18 +189,21 @@ int main() {
             lastTime = currentTime;
         }
 
+        // render everything
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
         b.draw(renderer, t);
         SDL_RenderPresent(renderer);
 
+        // reset if game is over
         if (b.failureState()) {
             b.reset();
             SDL_Delay(1000);
         } 
     }
 
+    // safely close sdl
     close();
 
     return 0;

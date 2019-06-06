@@ -71,7 +71,7 @@ void Tetromino::move(int dx, int dy) {
 
     x += dx;
     y += dy;
-    std::cout << x << " " << y << std::endl; // debugging
+    // std::cout << x << " " << y << std::endl; // debugging
 }
 
 void Tetromino::reset() {
