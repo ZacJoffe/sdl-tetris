@@ -15,6 +15,16 @@ void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) const {
     collisionTest.draw(renderer);
 }
 
+void Board::setLevel() {
+    if (linesCleared <= 0) {
+        level = 1;
+    } else if (linesCleared <= 90) {
+        level = 1 + ((linesCleared - 1) / 10);
+    } else {
+        level = 10;
+    }
+}
+
 Board::Board() {
     for (int i = 0; i < BOARD_WIDTH; i++) {
         for (int j = 0; j < BOARD_HEIGHT; j++) {
@@ -24,6 +34,8 @@ Board::Board() {
     }
 
     score = 0;
+    linesCleared = 0;
+    level = 1;
 }
 
 Board::~Board() {}
@@ -177,6 +189,9 @@ void Board::clearPieces() {
             break;
     }
 
+    linesCleared += rowsCleared;
+    this->setLevel();
+
     std::cout << score << std::endl;
 }
 
@@ -191,12 +206,19 @@ bool Board::failureState() const {
 }
 
 void Board::reset() {
+    // set all board values to default
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_HEIGHT; y++) {
-            // board[x][y] = 0;
             board[x][y] = Data();
         }
     }
 
+    // reset scoring vars
     score = 0;
+    linesCleared = 0;
+    level = 1;
 }
+
+int Board::getScore() const { return score; }
+int Board::getLinesCleared() const { return linesCleared; }
+int Board::getLevel() const { return level; }

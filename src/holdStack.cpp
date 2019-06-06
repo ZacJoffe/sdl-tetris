@@ -19,7 +19,6 @@ void HoldStack::push(const Tetromino &t) {
 }
 
 void HoldStack::swap(Tetromino &t) {
-    // test??
     Tetromino temp = this->t;
     this->t = t;
     t = temp;

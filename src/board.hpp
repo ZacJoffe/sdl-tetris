@@ -9,8 +9,11 @@ private:
     // int board[BOARD_WIDTH][BOARD_HEIGHT];
     Data board[BOARD_WIDTH][BOARD_HEIGHT];
     int score;
+    int linesCleared;
+    int level;
 
     void drawShadow(SDL_Renderer *renderer, const Tetromino &t) const;
+    void setLevel();
 public:
     Board();
     ~Board();
@@ -28,4 +31,8 @@ public:
     bool failureState() const;
 
     void reset();
+
+    int getScore() const;
+    int getLinesCleared() const;
+    int getLevel() const;
 };

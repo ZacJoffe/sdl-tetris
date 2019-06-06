@@ -30,4 +30,4 @@ To play it, simply run the binary:
 - [ ] Display score
 - [ ] Show next piece
 - [ ] Piece queue (at least one of each piece every 7 drops)
-- [ ] Dynamic drop rate
+- [X] Dynamic drop rate

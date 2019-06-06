@@ -171,10 +171,11 @@ int main() {
             }
         }
 
-        // check if a second has passed since last auto-drop
+        // check if enough time has passed since last gravity auto-drop
         currentTime = SDL_GetTicks();
 
-        if (currentTime > lastTime + 1000) {
+        // based off 5.10 - https://www.colinfahey.com/tetris/tetris.html
+        if (currentTime > lastTime + (11 - b.getLevel()) * 50) {
             collisionTest = t;
             collisionTest = t;
             collisionTest.move(0, 1);
