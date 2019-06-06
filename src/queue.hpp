@@ -10,7 +10,7 @@ private:
     TetrominoType nextQueue[QUEUESIZE];
 
     void fillQueue(TetrominoType t[]);
-    bool contains(const TetrominoType t[], const TetrominoType type) const;
+    bool contains(const TetrominoType t[], TetrominoType type) const;
 
     void enqueue(TetrominoType t);
     void fillNext();
@@ -22,4 +22,6 @@ public:
     ~Queue();
 
     TetrominoType dequeue();
+
+    void print() const;
 };

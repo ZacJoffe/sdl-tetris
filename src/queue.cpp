@@ -1,8 +1,10 @@
+#include <iostream>
 #include <time.h>
 
 #include "queue.hpp"
 
 void Queue::fillQueue(TetrominoType t[]) {
+    // generate random seed
     srand(time(NULL));
 
     for (int i = 0; i < QUEUESIZE; i++) {
@@ -64,8 +66,6 @@ Queue::Queue() {
     // fill values of both arrays
     fillQueue(this->currQueue);
     fillQueue(this->nextQueue);
-
-    
 }
 
 Queue::~Queue() {}
@@ -73,15 +73,40 @@ Queue::~Queue() {}
 TetrominoType Queue::dequeue() {
     // get first value, shift all in array left and enqueue the first val of the next array
     // if the array is not filled
-    TetrominoType t = currQueue[0];
+    TetrominoType t = this->currQueue[0];
 
-    for (int i = 0; i < QUEUESIZE; i++) {
-        // shift
+    for (int i = 0; i < QUEUESIZE - 1; i++) {
+        // shift all pieces left one index
+        this->currQueue[i] = this->currQueue[i + 1];
     }
 
     if (this->isNextEmpty()) {
         this->fillNext();
+    } else {
+        this->currQueue[QUEUESIZE - 1] = this->nextQueue[0];
+
+        for (int i = 0; i < QUEUESIZE - 1; i++) {
+            // shift all pieces left one index
+            this->nextQueue[i] = this->nextQueue[i + 1];
+        }
     }
 
     return t;
+}
+
+void Queue::print() const {
+    std::cout << "Current: ";
+    for (int i = 0; i < QUEUESIZE; i++) {
+        std::cout << this->currQueue[i] << " ";
+    }
+
+    std::cout << std::endl;
+
+    std::cout << "Next: ";
+
+    for (int i = 0; i < QUEUESIZE; i++) {
+        std::cout << this->nextQueue[i] << " ";
+    }
+
+    std::cout << std::endl;
 }
