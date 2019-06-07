@@ -5,7 +5,7 @@
 
 void Queue::fillQueue(TetrominoType t[]) {
     // generate random seed
-    srand(time(NULL));
+    // srand(time(NULL));
 
     for (int i = 0; i < QUEUESIZE; i++) {
         TetrominoType newType = static_cast<TetrominoType>(rand() % 7);
@@ -65,6 +65,7 @@ bool Queue::isNextEmpty() const {
 }
 
 Queue::Queue() {
+    srand(time(NULL));
     for (int i = 0; i < QUEUESIZE; i++) {
         this->currQueue[i] = NONE;
         this->nextQueue[i] = NONE;
@@ -81,23 +82,25 @@ TetrominoType Queue::dequeue() {
     // if the array is not filled
     TetrominoType t = this->currQueue[0];
 
+    if (this->isNextEmpty()) {
+        // fill up queue
+        this->fillQueue(this->nextQueue);
+    } 
+
     for (int i = 0; i < QUEUESIZE - 1; i++) {
-        // shift all pieces left one index
+        // shift all pieces in current queue left one index
         this->currQueue[i] = this->currQueue[i + 1];
     }
 
-    if (this->isNextEmpty()) {
-        this->fillQueue(this->nextQueue);
-    } else {
-        this->currQueue[QUEUESIZE - 1] = this->nextQueue[0];
+    this->currQueue[QUEUESIZE - 1] = this->nextQueue[0];
 
-        for (int i = 0; i < QUEUESIZE - 1; i++) {
-            // shift all pieces left one index
-            this->nextQueue[i] = this->nextQueue[i + 1];
-        }
-
-        this->nextQueue[QUEUESIZE - 1] = NONE;
+    for (int i = 0; i < QUEUESIZE - 1; i++) {
+        // shift all pieces in next queue left one index
+        this->nextQueue[i] = this->nextQueue[i + 1];
     }
+
+    // set last value as NONE
+    this->nextQueue[QUEUESIZE - 1] = NONE;
 
     return t;
 }

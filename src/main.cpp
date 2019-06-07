@@ -214,6 +214,8 @@ int main() {
         // reset if game is over
         if (b.failureState()) {
             b.reset();
+            q = Queue();
+            q.print();
             SDL_Delay(1000);
         } 
     }
