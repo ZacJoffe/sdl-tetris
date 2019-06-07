@@ -81,6 +81,7 @@ TetrominoType Queue::dequeue() {
     return t;
 }
 
+// print for debugging
 void Queue::print() const {
     std::cout << "Current: ";
     for (int i = 0; i < QUEUESIZE; i++) {

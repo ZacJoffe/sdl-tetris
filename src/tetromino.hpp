@@ -3,8 +3,9 @@
 #include <SDL2/SDL.h>
 #include "colour.hpp"
 
-#define SCREEN_WIDTH 320
+#define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 640
+#define SCREEN_WIDTH_BOARD SCREEN_HEIGHT / 2
 
 #define BOARD_WIDTH 10
 #define BOARD_HEIGHT 22
