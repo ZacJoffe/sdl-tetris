@@ -7,7 +7,7 @@
 void Queue::fillQueue(TetrominoType t[]) {
     for (int i = 0; i < QUEUESIZE; i++) {
         TetrominoType newType = static_cast<TetrominoType>(rand() % 7);
-        while (contains(t, newType)) {
+        while (this->contains(t, newType)) {
             newType = static_cast<TetrominoType>(rand() % 7);
         }
 

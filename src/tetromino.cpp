@@ -2,20 +2,20 @@
 #include "tetromino.hpp"
 
 Tetromino::Tetromino(TetrominoType t) {
-    type = t;
-    colour = Colour(type);
-    x = 4;
-    y = -2;
-    rotation = 0;
+    this->type = t;
+    this->colour = Colour(this->type);
+    this->x = 4;
+    this->y = -2;
+    this->rotation = 0;
     /*
-    switch (type) {
+    switch (this->type) {
         case I:
-            x = 4;
-            y = 0;
+            this->x = 4;
+            this->y = 0;
             break;
         case O:
-            x = 4;
-            y = 0;
+            this->x = 4;
+            this->y = 0;
             break;
         case T:
             break;
@@ -32,72 +32,57 @@ Tetromino::Tetromino(TetrominoType t) {
 }
 
 Tetromino::Tetromino() {
-    type = NONE; // used for check in HoldStack::isHeld() function
+    this->type = NONE; // used for check in HoldStack::isHeld() function
 }
 
 Tetromino::~Tetromino() {}
 
 void Tetromino::rotateCCW() {
-    if (rotation == 3) {
-        rotation = 0;
+    if (this->rotation == 3) {
+        this->rotation = 0;
     } else {
-        rotation++;
+        this->rotation++;
     }
 }
 
 void Tetromino::rotateCW() {
-    if (rotation == 0) {
-        rotation = 3;
+    if (this->rotation == 0) {
+        this->rotation = 3;
     } else {
-        rotation--;
+        this->rotation--;
     }
 }
 
 void Tetromino::move(int dx, int dy) {
-    /*
-    // handle in collision detection
-    if (dx == -1 && x > 0) {
-        x += dx;
-    }
-
-    if (dx == 1 && x < 9) {
-        x += dx;
-    }
-
-    if (dy == 1 && y < 20) {
-        y += dy;
-    }
-    */
-
-    x += dx;
-    y += dy;
+    this->x += dx;
+    this->y += dy;
     // std::cout << x << " " << y << std::endl; // debugging
 }
 
 void Tetromino::reset() {
-    x = 4;
-    y = -2;
-    rotation = 0;
+    this->x = 4;
+    this->y = -2;
+    this->rotation = 0;
 }
 
 void Tetromino::draw(SDL_Renderer *renderer) const {
-    SDL_SetRenderDrawColor(renderer, colour.getRed(), colour.getGreen(), colour.getBlue(), 255);
+    SDL_SetRenderDrawColor(renderer, this->colour.getRed(), this->colour.getGreen(), this->colour.getBlue(), 255);
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            if (pieces[type][rotation][i][j] == 1) {
-                SDL_Rect rect{(x + i) * SCREEN_WIDTH_BOARD / BOARD_WIDTH, (y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
+            if (pieces[this->type][this->rotation][i][j] == 1) {
+                SDL_Rect rect{(this->x + i) * SCREEN_WIDTH_BOARD / BOARD_WIDTH, (this->y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
                 SDL_RenderFillRect(renderer, &rect);
             }
         }
     }
 }
 
-TetrominoType Tetromino::getType() const { return type; }
-Colour Tetromino::getColour() const { return colour; }
-int Tetromino::getRotation() const { return rotation; }
-int Tetromino::getXPos() const { return x; }
-int Tetromino::getYPos() const { return y; }
+TetrominoType Tetromino::getType() const { return this->type; }
+Colour Tetromino::getColour() const { return this->colour; }
+int Tetromino::getRotation() const { return this->rotation; }
+int Tetromino::getXPos() const { return this->x; }
+int Tetromino::getYPos() const { return this->y; }
 
 void Tetromino::setColour(Colour c) {
-    colour = c;
+    this->colour = c;
 }

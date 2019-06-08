@@ -16,26 +16,25 @@ void Board::drawShadow(SDL_Renderer *renderer, const Tetromino &t) const {
 }
 
 void Board::setLevel() {
-    if (linesCleared <= 0) {
-        level = 1;
-    } else if (linesCleared <= 90) {
-        level = 1 + ((linesCleared - 1) / 10);
+    if (this->linesCleared <= 0) {
+        this->level = 1;
+    } else if (this->linesCleared <= 90) {
+        this->level = 1 + ((this->linesCleared - 1) / 10);
     } else {
-        level = 10;
+        this->level = 10;
     }
 }
 
 Board::Board() {
     for (int i = 0; i < BOARD_WIDTH; i++) {
         for (int j = 0; j < BOARD_HEIGHT; j++) {
-            // board[i][j] = 0;
-            board[i][j] = Data();
+            this->board[i][j] = Data();
         }
     }
 
-    score = 0;
-    linesCleared = 0;
-    level = 1;
+    this->score = 0;
+    this->linesCleared = 0;
+    this->level = 1;
 }
 
 Board::~Board() {}
@@ -43,7 +42,7 @@ Board::~Board() {}
 void Board::print() const {
     for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
         for (int x = 0; x < BOARD_WIDTH; x++) {
-            std::cout << board[x][y].getState() << " ";
+            std::cout << this->board[x][y].getState() << " ";
         }
 
         std::cout << std::endl;
@@ -54,10 +53,10 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
     // board
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
-            if (board[x][y].getState() == 1) {
+            if (this->board[x][y].getState() == 1) {
                 SDL_Rect rect{x * SCREEN_WIDTH_BOARD / BOARD_WIDTH, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
 
-                Colour c = board[x][y].getColour();
+                Colour c = this->board[x][y].getColour();
                 // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_SetRenderDrawColor(renderer, c.getRed(), c.getGreen(), c.getBlue(), 255);
                 SDL_RenderFillRect(renderer, &rect);
@@ -92,7 +91,7 @@ bool Board::collision(const Tetromino &t) const {
 
                 // std::cout << board[xLocation][yLocation].getState() << " " << t.getXPos() << " " << t.getYPos() << std::endl;
 
-                if (board[xLocation][yLocation].getState() == 1) {
+                if (this->board[xLocation][yLocation].getState() == 1) {
                     return true;
                 }
 
@@ -119,7 +118,7 @@ bool Board::atFloor(const Tetromino &t) const {
 
                 //std::cout << board[xLocation][yLocation] << t.getXPos() << t.getYPos() << std::endl;
 
-                if (board[xLocation][yLocation].getState() == 1) {
+                if (this->board[xLocation][yLocation].getState() == 1) {
                     return true;
                 }
 
@@ -141,7 +140,7 @@ void Board::setBlock(Tetromino t) {
                 int yLocation = t.getYPos() + j;
 
                 // board[xLocation][yLocation].setState(1);
-                board[xLocation][yLocation] = Data(1, t.getColour());
+                this->board[xLocation][yLocation] = Data(1, t.getColour());
             }
         }
     }
@@ -155,7 +154,7 @@ void Board::clearPieces() {
         bool filledRow;
         for (int x = 0; x < BOARD_WIDTH; x++) {
             filledRow = true;
-            if (board[x][y].getState() == 0) {
+            if (this->board[x][y].getState() == 0) {
                 filledRow = false;
                 break;
             }
@@ -166,7 +165,7 @@ void Board::clearPieces() {
             for (int i = y; i > 0; i--) {
                 for (int x = 0; x < BOARD_WIDTH; x++) {
                     // board[x][i] = board[x][i - 1];
-                    board[x][i].setState(board[x][i - 1].getState());
+                    this->board[x][i].setState(this->board[x][i - 1].getState());
                 }
             }
         }
@@ -174,25 +173,25 @@ void Board::clearPieces() {
 
     switch (rowsCleared) {
         case 1:
-            score += 40;
+            this->score += 40;
             break;
         case 2:
-            score += 100;
+            this->score += 100;
             break;
         case 3:
-            score += 300;
+            this->score += 300;
             break;
         case 4:
-            score += 1200;
+            this->score += 1200;
             break;
         default:
             break;
     }
 
-    linesCleared += rowsCleared;
+    this->linesCleared += rowsCleared;
     this->setLevel();
 
-    std::cout << score << std::endl;
+    std::cout << this->score << std::endl;
 }
 
 bool Board::failureState() const {
@@ -209,16 +208,16 @@ void Board::reset() {
     // set all board values to default
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_HEIGHT; y++) {
-            board[x][y] = Data();
+            this->board[x][y] = Data();
         }
     }
 
     // reset scoring vars
-    score = 0;
-    linesCleared = 0;
-    level = 1;
+    this->score = 0;
+    this->linesCleared = 0;
+    this->level = 1;
 }
 
-int Board::getScore() const { return score; }
-int Board::getLinesCleared() const { return linesCleared; }
-int Board::getLevel() const { return level; }
+int Board::getScore() const { return this->score; }
+int Board::getLinesCleared() const { return this->linesCleared; }
+int Board::getLevel() const { return this->level; }

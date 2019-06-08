@@ -5,7 +5,7 @@ HoldStack::HoldStack(Tetromino t) {
 }
 
 HoldStack::HoldStack() {
-    t = Tetromino(); // empty Tetromino object
+    this->t = Tetromino(); // empty Tetromino object
 }
 
 HoldStack::~HoldStack() {}
