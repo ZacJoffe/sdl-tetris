@@ -70,7 +70,7 @@ void Tetromino::draw(SDL_Renderer *renderer) const {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (pieces[this->type][this->rotation][i][j] == 1) {
-                SDL_Rect rect{(this->x + i) * SCREEN_WIDTH_BOARD / BOARD_WIDTH, (this->y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
+                SDL_Rect rect{(this->x + i) * SCREEN_WIDTH_BOARD / BOARD_WIDTH + BOARD_SHIFT, (this->y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
                 SDL_RenderFillRect(renderer, &rect);
             }
         }

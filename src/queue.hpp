@@ -19,5 +19,8 @@ public:
 
     TetrominoType dequeue();
 
+    TetrominoType getNext();
+
     void print() const;
+
 };

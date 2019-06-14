@@ -54,7 +54,7 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_VISIBLE_HEIGHT; y++) {
             if (this->board[x][y].getState() == 1) {
-                SDL_Rect rect{x * SCREEN_WIDTH_BOARD / BOARD_WIDTH, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
+                SDL_Rect rect{x * SCREEN_WIDTH_BOARD / BOARD_WIDTH + BOARD_SHIFT, y * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT};
 
                 Colour c = this->board[x][y].getColour();
                 // SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -71,14 +71,16 @@ void Board::draw(SDL_Renderer *renderer, const Tetromino &t) const {
     t.draw(renderer);
 
     // grid lines
-    for (int x = SCREEN_WIDTH_BOARD / BOARD_WIDTH; x <= SCREEN_WIDTH_BOARD; x += SCREEN_WIDTH_BOARD / BOARD_WIDTH) {
+    // vertical
+    for (int x = BOARD_SHIFT; x <= SCREEN_WIDTH_BOARD + BOARD_SHIFT; x += SCREEN_WIDTH_BOARD / BOARD_WIDTH) {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderDrawLine(renderer, x, 0, x, SCREEN_HEIGHT);
     }
 
+    // horizontal
     for (int y = SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT; y < SCREEN_HEIGHT; y += SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT) {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_RenderDrawLine(renderer, 0, y, SCREEN_WIDTH_BOARD, y);
+        SDL_RenderDrawLine(renderer, BOARD_SHIFT, y, SCREEN_WIDTH_BOARD + BOARD_SHIFT, y);
     }
 }
 

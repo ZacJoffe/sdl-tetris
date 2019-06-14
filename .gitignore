@@ -4,3 +4,6 @@ tetris
 
 # old main file
 main.cpp
+
+# vscode
+*.vscode

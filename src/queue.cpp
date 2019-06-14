@@ -81,6 +81,10 @@ TetrominoType Queue::dequeue() {
     return t;
 }
 
+TetrominoType Queue::getNext() {
+    return this->currQueue[0];
+}
+
 // print for debugging
 void Queue::print() const {
     std::cout << "Current: ";
