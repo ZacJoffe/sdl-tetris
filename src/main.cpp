@@ -8,6 +8,7 @@
 #include "colour.hpp"
 #include "holdStack.hpp"
 #include "queue.hpp"
+#include "dashboard.hpp"
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
@@ -71,6 +72,9 @@ int main() {
     // shift holding
     HoldStack held;
     bool swapped = false;
+
+    // dashboard
+    Dashboard d;
     
     // main game loop
     while (!quit) {
@@ -104,6 +108,51 @@ int main() {
                         collisionTest.rotateCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCW();
+                        } else {
+                            // check if the piece is at a wall
+
+                            // special case for I piece - move twice
+                            if (t.getType() == I) {
+                                // if piece is at the right wall
+                                if (t.getXPos() > 5) {
+                                    // move left twice, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-2, 0);
+                                        t.rotateCW();
+                                    }
+                                } else {
+                                    // at left wall
+                                    collisionTest = t;
+                                    // move right twice, check for collision
+                                    collisionTest.move(2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(2, 0);
+                                        t.rotateCW();
+                                    }
+                                }
+                            } else {
+                                // if piece is at right wall
+                                if (t.getXPos() > 5) {
+                                    // move left, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-1, 0);
+                                        t.rotateCW();
+                                    }
+                                } else {
+                                    // piece at left wall
+                                    // move right once, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(1, 0);
+                                        t.rotateCW();
+                                    }
+                                }
+                            }
                         }
                         break;
                     case SDLK_z:
@@ -112,6 +161,51 @@ int main() {
                         collisionTest.rotateCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCW();
+                        } else {
+                            // check if the piece is at a wall
+
+                            // special case for I piece - move twice
+                            if (t.getType() == I) {
+                                // if piece is at the right wall
+                                if (t.getXPos() > 5) {
+                                    // move left twice, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-2, 0);
+                                        t.rotateCW();
+                                    }
+                                } else {
+                                    // at left wall
+                                    collisionTest = t;
+                                    // move right twice, check for collision
+                                    collisionTest.move(2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(2, 0);
+                                        t.rotateCW();
+                                    }
+                                }
+                            } else {
+                                // if piece is at right wall
+                                if (t.getXPos() > 5) {
+                                    // move left, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-1, 0);
+                                        t.rotateCW();
+                                    }
+                                } else {
+                                    // piece at left wall
+                                    // move right once, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(1, 0);
+                                        t.rotateCW();
+                                    }
+                                }
+                            }
                         }
                         break;
                     case SDLK_x:
@@ -120,6 +214,51 @@ int main() {
                         collisionTest.rotateCCW();
                         if (!b.collision(collisionTest)) {
                             t.rotateCCW();
+                        } else {
+                            // check if the piece is at a wall
+
+                            // special case for I piece - move twice
+                            if (t.getType() == I) {
+                                // if piece is at the right wall
+                                if (t.getXPos() > 5) {
+                                    // move left twice, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-2, 0);
+                                        t.rotateCCW();
+                                    }
+                                } else {
+                                    // at left wall
+                                    collisionTest = t;
+                                    // move right twice, check for collision
+                                    collisionTest.move(2, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(2, 0);
+                                        t.rotateCCW();
+                                    }
+                                }
+                            } else {
+                                // if piece is at right wall
+                                if (t.getXPos() > 5) {
+                                    // move left, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(-1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(-1, 0);
+                                        t.rotateCCW();
+                                    }
+                                } else {
+                                    // piece at left wall
+                                    // move right once, check for collision
+                                    collisionTest = t;
+                                    collisionTest.move(1, 0);
+                                    if (!b.collision(collisionTest)) {
+                                        t.move(1, 0);
+                                        t.rotateCCW();
+                                    }
+                                }
+                            }
                         }
                         break;
 					case SDLK_DOWN:
@@ -218,6 +357,9 @@ int main() {
             q.print();
             SDL_Delay(1000);
         } 
+
+        d.update(t.getType(), held.getHeld().getType(), b.getScore(), b.getLevel());
+        d.draw(renderer);
     }
 
     // safely close sdl
