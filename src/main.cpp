@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -12,6 +13,7 @@
 
 SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
+TTF_Font *font = nullptr;
 
 // if any sdl call fails, returns false and logs error, otherwise return true for success
 bool init() {
@@ -28,8 +30,20 @@ bool init() {
 
     renderer = SDL_CreateRenderer(window, -1, NULL); // enable hardware acceleration flag?
     if (renderer == NULL) {
-        std::cout << "Rendered could not be created! SDL Error: " << SDL_GetError() << std::endl;
+        std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         return false;
+    }
+
+    if (TTF_Init() != 0) {
+        std::cout << "Font could not be created! SDL Error: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    std::string fontName = "assets/Roboto-Black.ttf";
+    
+    font = TTF_OpenFont(fontName.c_str(), 90);
+    if (font == NULL) {
+        std::cout << "Font could not be loaded! SDL Error: " << SDL_GetError() << std::endl;
     }
 
     return true;
@@ -39,6 +53,8 @@ bool init() {
 void close() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_Quit();
 }
 
@@ -74,7 +90,7 @@ int main() {
     bool swapped = false;
 
     // dashboard
-    Dashboard d;
+    Dashboard d(q.getNext());
     
     // main game loop
     while (!quit) {
