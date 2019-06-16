@@ -45,6 +45,13 @@ Dashboard::Dashboard(TetrominoType next, TetrominoType held, int score, int leve
 }
 */
 
+Dashboard::Dashboard(TetrominoType next) {
+    this->next = next;
+    this->held = NONE;
+    this->score = 0;
+    this->level = 0;
+}
+
 Dashboard::Dashboard() {
     this->next = NONE;
     this->held = NONE;
@@ -67,5 +74,8 @@ void Dashboard::update(TetrominoType next, TetrominoType held, int score, int le
  
 
 void Dashboard::draw(SDL_Renderer *renderer) {
-
+    this->drawNext(renderer);
+    this->drawHeld(renderer);
+    this->drawScore(renderer);
+    this->drawLevel(renderer);
 }

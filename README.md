@@ -7,7 +7,7 @@ I've always loved Tetris and I thought re-creating it would be a great way to le
 ## Build
 Eventually, I'd like to use CMake to automate the build (see the future goals section below). For now, if you want to build the project yourself, you can use the following command (assuming you have `g++` and `SDL2` installed):
 ```
-g++ ./src/*.cpp -w -lSDL2 -o main
+g++ ./src/*.cpp -w -lSDL2 -lSDL2_ttf -o main
 ```
 
 To play it, simply run the binary:
@@ -31,3 +31,6 @@ To play it, simply run the binary:
 - [ ] Show next piece
 - [X] Piece queue (at least one of each piece every 7 drops)
 - [X] Dynamic drop rate
+- [ ] Resolution config
+- [X] Better piece rotation against walls
+  - [ ] Fix I piece rotation against walls

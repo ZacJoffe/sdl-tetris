@@ -25,3 +25,5 @@ void HoldStack::swap(Tetromino &t) {
 
     t.reset();
 }
+
+Tetromino HoldStack::getHeld() { return this->t; }

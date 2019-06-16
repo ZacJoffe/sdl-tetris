@@ -15,4 +15,6 @@ public:
 
     void push(const Tetromino &t);
     void swap(Tetromino &t);
+
+    Tetromino getHeld();
 };

@@ -19,6 +19,7 @@ private:
     void drawLevel(SDL_Renderer *renderer);
 public:
     // Dashboard(TetrominoType next, TetrominoType held, int score, int level);
+    Dashboard(TetrominoType next);
     Dashboard();
     ~Dashboard();
 
