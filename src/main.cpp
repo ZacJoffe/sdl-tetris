@@ -41,7 +41,8 @@ bool init() {
 
     std::string fontName = "assets/Roboto-Black.ttf";
     
-    font = TTF_OpenFont(fontName.c_str(), 90);
+    // font = TTF_OpenFont(fontName.c_str(), 12);
+    font = TTF_OpenFont("assets/Roboto-Black.ttf", 24);
     if (font == NULL) {
         std::cout << "Font could not be loaded! SDL Error: " << SDL_GetError() << std::endl;
     }
@@ -364,6 +365,9 @@ int main() {
         SDL_RenderClear(renderer);
 
         b.draw(renderer, t);
+        d.update(t.getType(), held.getHeld().getType(), b.getScore(), b.getLevel());
+        d.draw(renderer, font);
+
         SDL_RenderPresent(renderer);
 
         // reset if game is over
@@ -371,11 +375,9 @@ int main() {
             b.reset();
             q = Queue();
             q.print();
+            d = Dashboard();
             SDL_Delay(1000);
         } 
-
-        d.update(t.getType(), held.getHeld().getType(), b.getScore(), b.getLevel());
-        d.draw(renderer);
     }
 
     // safely close sdl

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "colour.hpp"
 #include "tetromino.hpp"
 
@@ -15,7 +16,7 @@ private:
 
     void drawNext(SDL_Renderer *renderer);
     void drawHeld(SDL_Renderer *renderer);
-    void drawScore(SDL_Renderer *renderer);
+    void drawScore(SDL_Renderer *renderer, TTF_Font *font);
     void drawLevel(SDL_Renderer *renderer);
 public:
     // Dashboard(TetrominoType next, TetrominoType held, int score, int level);
@@ -25,5 +26,5 @@ public:
 
     void update(TetrominoType next, TetrominoType held, int score, int level);
 
-    void draw(SDL_Renderer *renderer);
+    void draw(SDL_Renderer *renderer, TTF_Font *font);
 };
