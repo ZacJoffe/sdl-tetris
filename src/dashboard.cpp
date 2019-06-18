@@ -53,7 +53,28 @@ void Dashboard::drawScore(SDL_Renderer *renderer, TTF_Font *font) {
     SDL_DestroyTexture(texture);
 }
 
-void Dashboard::drawLevel(SDL_Renderer *renderer) {
+void Dashboard::drawLevel(SDL_Renderer *renderer, TTF_Font *font) {
+    SDL_Color c = { 255, 255, 255, 255 };
+    SDL_Surface *surface = nullptr;
+    SDL_Texture *texture = nullptr;
+
+    std::string strLevel = "Level: " + std::to_string(this->level);
+
+    surface = TTF_RenderText_Solid(font, strLevel.c_str(), c);
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+
+    int textureWidth = 0;
+    int textureHeight = 0;
+    SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+    SDL_Rect dstrect = { 0, 0, textureWidth, textureHeight };
+
+
+
+    SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+    // SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
+    // SDL_RenderPresent(renderer);
+    SDL_DestroyTexture(texture);
 
 }
 
@@ -88,15 +109,13 @@ void Dashboard::update(TetrominoType next, TetrominoType held, int score, int le
     this->held = held;
     this->score = score;
     this->level = level;
-
-    // ???
-    // this->draw(renderer); 
 }
  
 
 void Dashboard::draw(SDL_Renderer *renderer, TTF_Font *font) {
-    // this->drawNext(renderer);
-    // this->drawHeld(renderer);
+    // call all private draw functions
+    this->drawNext(renderer);
+    this->drawHeld(renderer);
     this->drawScore(renderer, font);
-    // this->drawLevel(renderer);
+    this->drawLevel(renderer, font);
 }

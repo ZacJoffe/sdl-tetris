@@ -17,7 +17,7 @@ private:
     void drawNext(SDL_Renderer *renderer);
     void drawHeld(SDL_Renderer *renderer);
     void drawScore(SDL_Renderer *renderer, TTF_Font *font);
-    void drawLevel(SDL_Renderer *renderer);
+    void drawLevel(SDL_Renderer *renderer, TTF_Font *font);
 public:
     // Dashboard(TetrominoType next, TetrominoType held, int score, int level);
     Dashboard(TetrominoType next);
