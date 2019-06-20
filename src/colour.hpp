@@ -1,10 +1,11 @@
 #pragma once
 
 #include <stdlib.h>
+#include <cstdint>
 
 enum TetrominoType { I, O, T, S, Z, J, L, NONE };
 
-typedef u_int8_t Uint8;
+typedef uint8_t Uint8;
 
 class Colour {
 private:

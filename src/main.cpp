@@ -59,7 +59,7 @@ void close() {
     SDL_Quit();
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     // initialize sdl
     if (!init()) {
         return 1;
