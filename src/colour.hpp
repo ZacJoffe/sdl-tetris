@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdlib.h>
 #include <cstdint>
 
 enum TetrominoType { I, O, T, S, Z, J, L, NONE };
