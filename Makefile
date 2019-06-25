@@ -111,71 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Tetris
+# Target rules for targets named tetris
 
 # Build rule for target.
-Tetris: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Tetris
-.PHONY : Tetris
+tetris: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tetris
+.PHONY : tetris
 
 # fast build rule for target.
-Tetris/fast:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/build
-.PHONY : Tetris/fast
-
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.o: CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.o
-
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.o
-
-# target to build an object file
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.o
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.o
-
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.i: CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.i
-
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.i
-
-# target to preprocess a source file
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.i
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.i
-
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.s: CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.s
-
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.s
-
-# target to generate assembly for a file
-CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.s
-.PHONY : CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.cpp.s
-
-main.o: main.cpp.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/main.cpp.s
-.PHONY : main.cpp.s
+tetris/fast:
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/build
+.PHONY : tetris/fast
 
 src/board.o: src/board.cpp.o
 
@@ -183,7 +129,7 @@ src/board.o: src/board.cpp.o
 
 # target to build an object file
 src/board.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/board.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/board.cpp.o
 .PHONY : src/board.cpp.o
 
 src/board.i: src/board.cpp.i
@@ -192,7 +138,7 @@ src/board.i: src/board.cpp.i
 
 # target to preprocess a source file
 src/board.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/board.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/board.cpp.i
 .PHONY : src/board.cpp.i
 
 src/board.s: src/board.cpp.s
@@ -201,7 +147,7 @@ src/board.s: src/board.cpp.s
 
 # target to generate assembly for a file
 src/board.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/board.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/board.cpp.s
 .PHONY : src/board.cpp.s
 
 src/colour.o: src/colour.cpp.o
@@ -210,7 +156,7 @@ src/colour.o: src/colour.cpp.o
 
 # target to build an object file
 src/colour.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/colour.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/colour.cpp.o
 .PHONY : src/colour.cpp.o
 
 src/colour.i: src/colour.cpp.i
@@ -219,7 +165,7 @@ src/colour.i: src/colour.cpp.i
 
 # target to preprocess a source file
 src/colour.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/colour.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/colour.cpp.i
 .PHONY : src/colour.cpp.i
 
 src/colour.s: src/colour.cpp.s
@@ -228,7 +174,7 @@ src/colour.s: src/colour.cpp.s
 
 # target to generate assembly for a file
 src/colour.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/colour.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/colour.cpp.s
 .PHONY : src/colour.cpp.s
 
 src/dashboard.o: src/dashboard.cpp.o
@@ -237,7 +183,7 @@ src/dashboard.o: src/dashboard.cpp.o
 
 # target to build an object file
 src/dashboard.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/dashboard.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/dashboard.cpp.o
 .PHONY : src/dashboard.cpp.o
 
 src/dashboard.i: src/dashboard.cpp.i
@@ -246,7 +192,7 @@ src/dashboard.i: src/dashboard.cpp.i
 
 # target to preprocess a source file
 src/dashboard.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/dashboard.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/dashboard.cpp.i
 .PHONY : src/dashboard.cpp.i
 
 src/dashboard.s: src/dashboard.cpp.s
@@ -255,7 +201,7 @@ src/dashboard.s: src/dashboard.cpp.s
 
 # target to generate assembly for a file
 src/dashboard.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/dashboard.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/dashboard.cpp.s
 .PHONY : src/dashboard.cpp.s
 
 src/data.o: src/data.cpp.o
@@ -264,7 +210,7 @@ src/data.o: src/data.cpp.o
 
 # target to build an object file
 src/data.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/data.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/data.cpp.o
 .PHONY : src/data.cpp.o
 
 src/data.i: src/data.cpp.i
@@ -273,7 +219,7 @@ src/data.i: src/data.cpp.i
 
 # target to preprocess a source file
 src/data.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/data.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/data.cpp.i
 .PHONY : src/data.cpp.i
 
 src/data.s: src/data.cpp.s
@@ -282,7 +228,7 @@ src/data.s: src/data.cpp.s
 
 # target to generate assembly for a file
 src/data.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/data.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/data.cpp.s
 .PHONY : src/data.cpp.s
 
 src/holdStack.o: src/holdStack.cpp.o
@@ -291,7 +237,7 @@ src/holdStack.o: src/holdStack.cpp.o
 
 # target to build an object file
 src/holdStack.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/holdStack.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/holdStack.cpp.o
 .PHONY : src/holdStack.cpp.o
 
 src/holdStack.i: src/holdStack.cpp.i
@@ -300,7 +246,7 @@ src/holdStack.i: src/holdStack.cpp.i
 
 # target to preprocess a source file
 src/holdStack.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/holdStack.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/holdStack.cpp.i
 .PHONY : src/holdStack.cpp.i
 
 src/holdStack.s: src/holdStack.cpp.s
@@ -309,7 +255,7 @@ src/holdStack.s: src/holdStack.cpp.s
 
 # target to generate assembly for a file
 src/holdStack.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/holdStack.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/holdStack.cpp.s
 .PHONY : src/holdStack.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -318,7 +264,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -327,7 +273,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -336,7 +282,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 src/queue.o: src/queue.cpp.o
@@ -345,7 +291,7 @@ src/queue.o: src/queue.cpp.o
 
 # target to build an object file
 src/queue.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/queue.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/queue.cpp.o
 .PHONY : src/queue.cpp.o
 
 src/queue.i: src/queue.cpp.i
@@ -354,7 +300,7 @@ src/queue.i: src/queue.cpp.i
 
 # target to preprocess a source file
 src/queue.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/queue.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/queue.cpp.i
 .PHONY : src/queue.cpp.i
 
 src/queue.s: src/queue.cpp.s
@@ -363,7 +309,7 @@ src/queue.s: src/queue.cpp.s
 
 # target to generate assembly for a file
 src/queue.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/queue.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/queue.cpp.s
 .PHONY : src/queue.cpp.s
 
 src/tetromino.o: src/tetromino.cpp.o
@@ -372,7 +318,7 @@ src/tetromino.o: src/tetromino.cpp.o
 
 # target to build an object file
 src/tetromino.cpp.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/tetromino.cpp.o
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/tetromino.cpp.o
 .PHONY : src/tetromino.cpp.o
 
 src/tetromino.i: src/tetromino.cpp.i
@@ -381,7 +327,7 @@ src/tetromino.i: src/tetromino.cpp.i
 
 # target to preprocess a source file
 src/tetromino.cpp.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/tetromino.cpp.i
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/tetromino.cpp.i
 .PHONY : src/tetromino.cpp.i
 
 src/tetromino.s: src/tetromino.cpp.s
@@ -390,7 +336,7 @@ src/tetromino.s: src/tetromino.cpp.s
 
 # target to generate assembly for a file
 src/tetromino.cpp.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/src/tetromino.cpp.s
+	$(MAKE) -f CMakeFiles/tetris.dir/build.make CMakeFiles/tetris.dir/src/tetromino.cpp.s
 .PHONY : src/tetromino.cpp.s
 
 # Help Target
@@ -400,14 +346,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... Tetris"
+	@echo "... tetris"
 	@echo "... edit_cache"
-	@echo "... CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.o"
-	@echo "... CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.i"
-	@echo "... CMakeFiles/3.14.5/CompilerIdCXX/CMakeCXXCompilerId.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 	@echo "... src/board.o"
 	@echo "... src/board.i"
 	@echo "... src/board.s"
