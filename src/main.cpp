@@ -240,9 +240,9 @@ int main(int argc, char *argv[]) {
                                 if (t.getXPos() > 5) {
                                     // move left twice, check for collision
                                     collisionTest = t;
-                                    collisionTest.move(-2, 0);
+                                    collisionTest.move(-1, 0);
                                     if (!b.collision(collisionTest)) {
-                                        t.move(-2, 0);
+                                        t.move(-1, 0);
                                         t.rotateCCW();
                                     }
                                 } else {
