@@ -5,14 +5,18 @@ Tetris made in C++ using SDL2.
 I've always loved Tetris and I thought re-creating it would be a great way to learn SDL2 and get more experience in C++. Even though there are still features I'd like to add (see the list below), I'm very happy with the results and think that it feels mostly authentic to normal Tetris.
 
 ## Build
-Eventually, I'd like to use CMake to automate the build (see the future goals section below). For now, if you want to build the project yourself, you can use the following command (assuming you have `g++` and `SDL2` installed):
+If you're on Linux, you can use `CMake` to compile the project. Simple type:
 ```
-g++ ./src/*.cpp -w -lSDL2 -lSDL2_ttf -o main
+cmake . && make
+```
+Run the executable with:
+```
+./tetris
 ```
 
-To play it, simply run the binary:
+You can also compile manually (assuming you have `g++`, `SDL2` and `SDL2_TTF`):
 ```
-./main
+g++ ./src/*.cpp -w -lSDL2 -lSDL2_ttf -o tetris && ./tetris
 ```
 
 ## Controls
@@ -25,7 +29,8 @@ To play it, simply run the binary:
 - Left Shift - Hold tetromino, or swap with currently held tetromino
 
 ## Future goals:
-- [ ] CMake
+- [X] CMake
+  - [ ] Windows
 - [X] Show proper piece colours after being set
 - [ ] Display score
 - [ ] Show next piece
