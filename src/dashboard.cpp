@@ -46,7 +46,6 @@ void Dashboard::drawScore(SDL_Renderer *renderer, TTF_Font *font) {
     SDL_Rect dstrect = { (3.0 / 2.0) * SCREEN_WIDTH_BOARD + SCREEN_WIDTH_BOARD / 4 - textureWidth / 2, SCREEN_HEIGHT - textureHeight, textureWidth, textureHeight };
 
 
-
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
     // SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
     // SDL_RenderPresent(renderer);
@@ -67,7 +66,8 @@ void Dashboard::drawLevel(SDL_Renderer *renderer, TTF_Font *font) {
     int textureWidth = 0;
     int textureHeight = 0;
     SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
-    SDL_Rect dstrect = { 0, 0, textureWidth, textureHeight };
+    SDL_Rect dstrect = { SCREEN_WIDTH_BOARD / 4 - textureWidth / 2, SCREEN_HEIGHT - textureHeight, textureWidth, textureHeight };
+    // SDL_Rect dstrect = { 0, 0, textureWidth, textureHeight };
 
 
 
@@ -117,5 +117,5 @@ void Dashboard::draw(SDL_Renderer *renderer, TTF_Font *font) {
     // this->drawNext(renderer);
     // this->drawHeld(renderer);
     this->drawScore(renderer, font);
-    // this->drawLevel(renderer, font);
+    this->drawLevel(renderer, font);
 }
