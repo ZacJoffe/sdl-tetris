@@ -43,7 +43,7 @@ void Dashboard::drawScore(SDL_Renderer *renderer, TTF_Font *font) {
     int textureWidth = 0;
     int textureHeight = 0;
     SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
-    SDL_Rect dstrect = { 0, 0, textureWidth, textureHeight };
+    SDL_Rect dstrect = { (3.0 / 2.0) * SCREEN_WIDTH_BOARD + SCREEN_WIDTH_BOARD / 4 - textureWidth / 2, SCREEN_HEIGHT - textureHeight, textureWidth, textureHeight };
 
 
 
@@ -114,8 +114,8 @@ void Dashboard::update(TetrominoType next, TetrominoType held, int score, int le
 
 void Dashboard::draw(SDL_Renderer *renderer, TTF_Font *font) {
     // call all private draw functions
-    this->drawNext(renderer);
-    this->drawHeld(renderer);
+    // this->drawNext(renderer);
+    // this->drawHeld(renderer);
     this->drawScore(renderer, font);
-    this->drawLevel(renderer, font);
+    // this->drawLevel(renderer, font);
 }
