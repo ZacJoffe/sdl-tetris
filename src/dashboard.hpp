@@ -14,7 +14,7 @@ private:
     int score;
     int level;
 
-    void drawNext(SDL_Renderer *renderer);
+    void drawNext(SDL_Renderer *renderer, TTF_Font *font);
     void drawHeld(SDL_Renderer *renderer, TTF_Font *font);
     void drawScore(SDL_Renderer *renderer, TTF_Font *font);
     void drawLevel(SDL_Renderer *renderer, TTF_Font *font);
