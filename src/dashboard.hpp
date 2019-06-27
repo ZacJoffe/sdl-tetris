@@ -6,7 +6,7 @@
 #include "tetromino.hpp"
 
 
-class Dashboard{
+class Dashboard {
 private:
     TetrominoType next;
     TetrominoType held;
@@ -15,7 +15,7 @@ private:
     int level;
 
     void drawNext(SDL_Renderer *renderer);
-    void drawHeld(SDL_Renderer *renderer);
+    void drawHeld(SDL_Renderer *renderer, TTF_Font *font);
     void drawScore(SDL_Renderer *renderer, TTF_Font *font);
     void drawLevel(SDL_Renderer *renderer, TTF_Font *font);
 public:
