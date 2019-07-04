@@ -85,6 +85,15 @@ TetrominoType Queue::getNext() {
     return this->currQueue[0];
 }
 
+std::vector<TetrominoType> Queue::getNextSet() {
+    std::vector<TetrominoType> nextSet;
+    for (int i = 0; i < 4; i++) {
+        nextSet.push_back(this->currQueue[i]);
+    }
+
+    return nextSet;
+}
+
 // print for debugging
 void Queue::print() const {
     std::cout << "Current: ";

@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
     bool swapped = false;
 
     // dashboard
-    Dashboard d(q.getNext());
+    Dashboard d(q.getNextSet());
     
     // main game loop
     while (!quit) {
@@ -365,7 +365,7 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         b.draw(renderer, t);
-        d.update(q.getNext(), held.getHeld().getType(), b.getScore(), b.getLevel());
+        d.update(q.getNextSet(), held.getHeld().getType(), b.getScore(), b.getLevel());
         d.draw(renderer, font);
 
         SDL_RenderPresent(renderer);

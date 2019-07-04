@@ -21,6 +21,20 @@ void Dashboard::drawNext(SDL_Renderer *renderer, TTF_Font *font) {
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
     SDL_DestroyTexture(texture);
 
+    for (int piece = 0; piece < this->nextSet.size(); piece++) {
+        Colour c(this->nextSet[piece]);
+        SDL_SetRenderDrawColor(renderer, c.getRed(), c.getGreen(), c.getBlue(), 255);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (pieces[this->nextSet[piece]][0][i][j] == 1) {
+                    // SDL_Rect rect{ (this->x + i) * SCREEN_WIDTH_BOARD / BOARD_WIDTH, (this->y + j) * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT };
+                    SDL_Rect rect{ (3.0 / 2.0) * SCREEN_WIDTH_BOARD + i * SCREEN_WIDTH_BOARD / BOARD_WIDTH, (piece * 4 * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT) + textureHeight + j * SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT, SCREEN_WIDTH_BOARD / BOARD_WIDTH, SCREEN_HEIGHT / BOARD_VISIBLE_HEIGHT };
+                    SDL_RenderFillRect(renderer, &rect);
+                }
+            }
+        }
+    }
+    /*
     Colour c(this->next);
     SDL_SetRenderDrawColor(renderer, c.getRed(), c.getGreen(), c.getBlue(), 255);
     for (int i = 0; i < 4; i++) {
@@ -32,6 +46,7 @@ void Dashboard::drawNext(SDL_Renderer *renderer, TTF_Font *font) {
             }
         }
     }
+    */
 }
 
 void Dashboard::drawHeld(SDL_Renderer *renderer, TTF_Font *font) {
@@ -54,9 +69,6 @@ void Dashboard::drawHeld(SDL_Renderer *renderer, TTF_Font *font) {
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
     SDL_DestroyTexture(texture);
 
-    // SDL_Rect heldOutlineRect = { 0, textureHeight, 100, 100 };
-    // SDL_RenderDrawRect(renderer, &heldOutlineRect);
-
 
     Colour c(this->held);
     SDL_SetRenderDrawColor(renderer, c.getRed(), c.getGreen(), c.getBlue(), 255);
@@ -69,6 +81,13 @@ void Dashboard::drawHeld(SDL_Renderer *renderer, TTF_Font *font) {
             }
         }
     }
+
+    /*
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    // SDL_Rect heldOutlineRect = { SCREEN_WIDTH_BOARD / BOARD_WIDTH, textureHeight, 100, 100 };
+    SDL_Rect heldOutlineRect = { SCREEN_WIDTH_BOARD / BOARD_WIDTH, textureHeight, 4 * SCREEN_WIDTH_BOARD / BOARD_WIDTH, 4 * SCREEN_WIDTH_BOARD / BOARD_WIDTH };
+    SDL_RenderDrawRect(renderer, &heldOutlineRect);
+    */
 }
 
 void Dashboard::drawScore(SDL_Renderer *renderer, TTF_Font *font) {
@@ -128,6 +147,7 @@ Dashboard::Dashboard(TetrominoType next, TetrominoType held, int score, int leve
 }
 */
 
+/*
 Dashboard::Dashboard(TetrominoType next) {
     this->next = next;
     this->held = NONE;
@@ -144,9 +164,33 @@ Dashboard::Dashboard() {
 
 Dashboard::~Dashboard() {}
 
-
 void Dashboard::update(TetrominoType next, TetrominoType held, int score, int level) {
     this->next = next;
+    this->held = held;
+    this->score = score;
+    this->level = level;
+}
+*/
+
+Dashboard::Dashboard(std::vector<TetrominoType> nextSet) {
+    this->nextSet = nextSet;
+    this->held = NONE;
+    this->score = 0;
+    this->level = 0;
+}
+
+Dashboard::Dashboard() {
+    this->nextSet.push_back(NONE);
+    this->held = NONE;
+    this->score = 0;
+    this->level = 0;
+}
+
+Dashboard::~Dashboard() {}
+
+
+void Dashboard::update(std::vector<TetrominoType> nextSet, TetrominoType held, int score, int level) {
+    this->nextSet = nextSet;
     this->held = held;
     this->score = score;
     this->level = level;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "colour.hpp"
 
 #define QUEUESIZE 7
@@ -18,9 +19,8 @@ public:
     ~Queue();
 
     TetrominoType dequeue();
-
     TetrominoType getNext();
+    std::vector<TetrominoType> getNextSet();
 
     void print() const;
-
 };
