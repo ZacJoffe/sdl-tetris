@@ -365,7 +365,7 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         b.draw(renderer, t);
-        d.update(t.getType(), held.getHeld().getType(), b.getScore(), b.getLevel());
+        d.update(q.getNext(), held.getHeld().getType(), b.getScore(), b.getLevel());
         d.draw(renderer, font);
 
         SDL_RenderPresent(renderer);
