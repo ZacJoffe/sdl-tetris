@@ -32,8 +32,9 @@ g++ ./src/*.cpp -w -lSDL2 -lSDL2_ttf -o tetris && ./tetris
 - [X] CMake
   - [ ] Windows
 - [X] Show proper piece colours after being set
-- [ ] Display score
-- [ ] Show next piece
+- [X] Display score
+- [X] Show next piece
+  - [ ] Show next 4 pieces in queue
 - [X] Piece queue (at least one of each piece every 7 drops)
 - [X] Dynamic drop rate
 - [ ] Resolution config
