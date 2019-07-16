@@ -20,6 +20,7 @@ private:
     void drawHeld(SDL_Renderer *renderer, TTF_Font *font);
     void drawScore(SDL_Renderer *renderer, TTF_Font *font);
     void drawLevel(SDL_Renderer *renderer, TTF_Font *font);
+    void drawGameOver(SDL_Renderer *renderer, TTF_Font *font);
 public:
     // Dashboard(TetrominoType next, TetrominoType held, int score, int level);
     // Dashboard(TetrominoType next);
@@ -30,5 +31,5 @@ public:
     // void update(TetrominoType next, TetrominoType held, int score, int level);
     void update(std::vector<TetrominoType> nextSet, TetrominoType held, int score, int level);
 
-    void draw(SDL_Renderer *renderer, TTF_Font *font);
+    void draw(SDL_Renderer *renderer, TTF_Font *font, bool isOver);
 };
