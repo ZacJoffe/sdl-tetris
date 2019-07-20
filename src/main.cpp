@@ -297,6 +297,7 @@ int main(int argc, char *argv[]) {
                         b.reset();
                         // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                         t = Tetromino(q.dequeue());
+                        held.reset();
                         break;
 					case SDLK_SPACE:
                         // hard drop
@@ -380,6 +381,7 @@ int main(int argc, char *argv[]) {
             SDL_RenderPresent(renderer);
 
             b.reset();
+            held.reset();
             q = Queue();
             q.print();
             d = Dashboard();
