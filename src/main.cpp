@@ -40,8 +40,8 @@ bool init() {
     }
 
     std::string fontName = "assets/Roboto-Black.ttf";
-    
-    // font = TTF_OpenFont(fontName.c_str(), 12);
+
+    //  font = TTF_OpenFont(fontName.c_str(), 12);
     font = TTF_OpenFont("assets/Roboto-Black.ttf", 24);
     if (font == NULL) {
         std::cout << "Font could not be loaded! SDL Error: " << SDL_GetError() << std::endl;
@@ -366,18 +366,31 @@ int main(int argc, char *argv[]) {
 
         b.draw(renderer, t);
         d.update(q.getNextSet(), held.getHeld().getType(), b.getScore(), b.getLevel());
+
+        /*
         d.draw(renderer, font);
 
         SDL_RenderPresent(renderer);
+        */
 
         // reset if game is over
         if (b.failureState()) {
+            // draw the game over state
+            d.draw(renderer, font, true);
+            SDL_RenderPresent(renderer);
+
             b.reset();
             q = Queue();
             q.print();
             d = Dashboard();
-            SDL_Delay(1000);
-        } 
+
+            // wait 2.5 seconds
+            SDL_Delay(2500);
+        } else {
+            // draw the normal state
+            d.draw(renderer, font, false);
+            SDL_RenderPresent(renderer);
+        }
     }
 
     // safely close sdl

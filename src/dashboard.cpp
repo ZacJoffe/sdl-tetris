@@ -144,9 +144,9 @@ void Dashboard::drawGameOver(SDL_Renderer *renderer, TTF_Font *font) {
     SDL_Texture *texture = nullptr;
 
     // std::string strLevel = "Level: " + std::to_string(this->level);
-    std::string gameOverText = "Level: " + std::to_string(this->level);
+    std::string gameOverText = "Game Over";
 
-    surface = TTF_RenderText_Solid(font, strLevel.c_str(), c);
+    surface = TTF_RenderText_Solid(font, gameOverText.c_str(), c);
     texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_FreeSurface(surface);
 
@@ -154,14 +154,12 @@ void Dashboard::drawGameOver(SDL_Renderer *renderer, TTF_Font *font) {
     int textureHeight = 0;
     SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
     SDL_Rect dstrect = { SCREEN_WIDTH_BOARD / 4 - textureWidth / 2, SCREEN_HEIGHT - textureHeight, textureWidth, textureHeight };
-    // SDL_Rect dstrect = { 0, 0, textureWidth, textureHeight };
-
-
 
     SDL_RenderCopy(renderer, texture, NULL, &dstrect);
-    // SDL_RenderCopy(renderer, texture, &srcrect, &dstrect);
-    // SDL_RenderPresent(renderer);
     SDL_DestroyTexture(texture);
+
+    // draw the final score
+    this->drawScore(renderer, font);
 }
 
 /*
@@ -221,7 +219,6 @@ void Dashboard::update(std::vector<TetrominoType> nextSet, TetrominoType held, i
     this->score = score;
     this->level = level;
 }
- 
 
 void Dashboard::draw(SDL_Renderer *renderer, TTF_Font *font, bool isOver) {
     // call all private draw functions
