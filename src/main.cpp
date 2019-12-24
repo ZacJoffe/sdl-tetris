@@ -278,7 +278,7 @@ int main(int argc, char *argv[]) {
                             }
                         }
                         break;
-					case SDLK_DOWN:
+                    case SDLK_DOWN:
                         // move tetromino down - soft drop
                         collisionTest = t;
                         collisionTest.move(0, 1);
@@ -299,44 +299,44 @@ int main(int argc, char *argv[]) {
                         t = Tetromino(q.dequeue());
                         held.reset();
                         break;
-					case SDLK_SPACE:
+                    case SDLK_SPACE:
+                    {
                         // hard drop
-                        {
-                            collisionTest = t;
-                            int moveCount = 0;
-                            while (!b.atFloor(collisionTest)) {
-                                collisionTest.move(0, 1);
-                                moveCount++;
+                        collisionTest = t;
+                        int moveCount = 0;
+                        while (!b.atFloor(collisionTest)) {
+                            collisionTest.move(0, 1);
+                            moveCount++;
+                        }
+                        t.move(0, moveCount - 1);
+                        b.setBlock(t);
+                        b.clearPieces();
+                        // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
+                        t = Tetromino(q.dequeue());
+                        swapped = false;
+                        // b.print();
+                        // hard drop
+
+                        q.print();
+
+                        break;
+                    }
+                    case SDLK_LSHIFT:
+                    {
+                        // swap the current tetromino with a new one
+                        if (held.isHeld()) {
+                            if (!swapped) {
+                                held.swap(t);
+                                swapped = true;
                             }
-                            t.move(0, moveCount - 1);
-                            b.setBlock(t);
-                            b.clearPieces();
+                        } else {
+                            held.push(t);
                             // t = Tetromino(static_cast<TetrominoType>(rand() % 7));
                             t = Tetromino(q.dequeue());
-							swapped = false;
-                            // b.print();
-                            // hard drop
-
-                            q.print();
-
-                            break;
-						}
-					case SDLK_LSHIFT:
-                        // swap the current tetromino with a new one
-						{
-							if (held.isHeld()) {
-								if (!swapped) {
-									held.swap(t);
-									swapped = true;
-								}
-							} else {
-								held.push(t);
-								// t = Tetromino(static_cast<TetrominoType>(rand() % 7));
-                                t = Tetromino(q.dequeue());
-								swapped = true;
-							}
-							break;
-						}
+                            swapped = true;
+                        }
+                        break;
+                    }
                 }
             }
         }
